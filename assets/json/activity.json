@@ -1,0 +1,13 @@
+{  
+  "project_name": "To-Do",  
+  "feature": "Activity",  
+  "usecases": [  
+    {  
+      "method": "get",  
+      "name": "Activity",  
+      "response": "DataActivity",  
+      "isHaveBody": null,  
+      "bodyName": null
+    }
+  ]  
+}
