@@ -13,7 +13,6 @@ import 'package:to_do_list_app/features/crud/presentation/statistic/pages/statis
 
 final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
 const items = <TabItem>[
-   
   TabItem(
     icon: FontAwesomeIcons.house,
     title: 'Home',

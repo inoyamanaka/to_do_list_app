@@ -5,8 +5,17 @@ import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class TimelineCard extends StatelessWidget {
   const TimelineCard({
+    required this.category,
+    required this.name,
+    required this.startTime,
+    required this.finishTime,
     super.key,
   });
+
+  final String category;
+  final String name;
+  final String startTime;
+  final String finishTime;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,7 @@ class TimelineCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
-        color: Colors.pink,
+        color: const Color(0xff82B0BC),
       ),
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -29,7 +38,7 @@ class TimelineCard extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Olahraga-Renang',
+              '$category-$name',
               style: MyTypography.labelMedium,
             ),
           ),
@@ -47,7 +56,7 @@ class TimelineCard extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                '12.00 - 14.00',
+                '$startTime - $finishTime',
                 style: MyTypography.bodyTinyWhite,
               )
             ],

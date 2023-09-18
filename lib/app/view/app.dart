@@ -1,8 +1,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_do_list_app/features/auth/presentation/introduction/pages/intorduction_page.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_bindings.dart';
-import 'package:to_do_list_app/features/crud/presentation/main_menu_page.dart';
+import 'package:to_do_list_app/infrastructure/navigation/navigation.dart';
 import 'package:to_do_list_app/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -21,8 +22,10 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      // initialRoute: Routes.intro,
+      getPages: Nav.routes,
       initialBinding: CrudBinding(),
-      home: const MyMenuPage(),
+      home: const IntroductionPage(),
     );
   }
 }

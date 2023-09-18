@@ -7,6 +7,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/widgets/appbar_widget.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/project_today_card.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
@@ -29,43 +30,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(c.result);
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(65),
-          child: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            titleSpacing: 10.w,
-            centerTitle: false,
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Kirito',
-                  style: MyTypography.bodySmall,
-                ),
-                Text(
-                  'Rabu, 03 Maret 2023',
-                  style: MyTypography.bodyTiny,
-                ),
-              ],
-            ),
-            leadingWidth: 65.w,
-            leading: Padding(
-              padding: EdgeInsets.only(left: 5.w),
-              child: const CircleAvatar(),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                color: Colors.black,
-                onPressed: () {},
-              ),
-            ],
-          ),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(65),
+          child: AppBarWidget(),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -134,7 +106,8 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: c.result[0].length,
+                      itemCount:
+                          c.result[0].length >= 3 ? 3 : c.result[0].length,
                       itemBuilder: (context, index) => Slidable(
                         key: UniqueKey(),
                         startActionPane: ActionPane(
