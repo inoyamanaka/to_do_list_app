@@ -20,6 +20,7 @@ class DataModel extends HiveObject {
 
   @HiveField(4)
   final String? category;
+  
   DataModel({
     this.name,
     this.date,

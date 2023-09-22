@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable, omit_local_variable_types
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -30,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(c.result);
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
@@ -129,6 +129,24 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         child: ProjectCard(
+                          onComplete: () {
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.warning,
+                              body: const Center(
+                                child: Text(
+                                  'Apakah Aktivitas Sudah Selesai',
+                                  style: TextStyle(fontStyle: FontStyle.italic),
+                                ),
+                              ),
+                              title: 'This is Ignored',
+                              desc: 'This is also Ignored',
+                              btnCancelOnPress: () {},
+                              btnCancelText: 'Belum',
+                              btnOkOnPress: () {},
+                              btnOkText: 'Sudah',
+                            ).show();
+                          },
                           result: c.result[0][index],
                         ),
                       ),

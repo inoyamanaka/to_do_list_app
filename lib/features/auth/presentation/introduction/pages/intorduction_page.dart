@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:to_do_list_app/features/auth/presentation/introduction/widgets/page_intro.dart';
-import 'package:to_do_list_app/features/crud/presentation/main_menu_page.dart';
+import 'package:to_do_list_app/features/auth/presentation/register/pages/register_page.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({super.key});
@@ -20,7 +20,7 @@ class IntroductionPageState extends State<IntroductionPage> {
         onDone: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const MyMenuPage()),
+            MaterialPageRoute(builder: (context) => const RegisterPage()),
           );
         },
         scrollPhysics: const ClampingScrollPhysics(),

@@ -9,6 +9,38 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/Belajar.png
+  AssetGenImage get belajar => const AssetGenImage('assets/images/Belajar.png');
+
+  /// File path: assets/images/Hiburan.png
+  AssetGenImage get hiburan => const AssetGenImage('assets/images/Hiburan.png');
+
+  /// File path: assets/images/Hobi.png
+  AssetGenImage get hobi => const AssetGenImage('assets/images/Hobi.png');
+
+  /// File path: assets/images/Ibadah.png
+  AssetGenImage get ibadah => const AssetGenImage('assets/images/Ibadah.png');
+
+  /// File path: assets/images/Olahraga.png
+  AssetGenImage get olahraga =>
+      const AssetGenImage('assets/images/Olahraga.png');
+
+  /// File path: assets/images/Pekerjaan.png
+  AssetGenImage get pekerjaan =>
+      const AssetGenImage('assets/images/Pekerjaan.png');
+
+  /// File path: assets/images/decoration.png
+  AssetGenImage get decoration =>
+      const AssetGenImage('assets/images/decoration.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [belajar, hiburan, hobi, ibadah, olahraga, pekerjaan, decoration];
+}
+
 class $AssetsLottiesGen {
   const $AssetsLottiesGen();
 
@@ -31,6 +63,7 @@ class $AssetsLottiesGen {
 class Assets {
   Assets._();
 
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottiesGen lotties = $AssetsLottiesGen();
 }
 

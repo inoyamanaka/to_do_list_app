@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -9,6 +10,14 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final presentTime = DateTime.now();
+    final dayName = DateFormat('EEEE').format(presentTime);
+    final day = presentTime.day;
+
+// Mengonversi nilai bulan menjadi nama bulan
+    final monthName = DateFormat('MMMM').format(presentTime);
+    final year = presentTime.year;
+
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
@@ -22,7 +31,7 @@ class AppBarWidget extends StatelessWidget {
             style: MyTypography.bodySmall,
           ),
           Text(
-            'Rabu, 03 Maret 2023',
+            '$dayName, $day $monthName $year',
             style: MyTypography.bodyTiny,
           ),
         ],

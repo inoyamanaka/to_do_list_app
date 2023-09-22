@@ -9,6 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:to_do_list_app/app/app.dart';
 import 'package:to_do_list_app/bootstrap.dart';
+import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/infrastructure/constants/constant.dart';
 import 'package:to_do_list_app/infrastructure/env/env_config.dart';
@@ -23,7 +24,11 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter<DataModel>(DataModelAdapter());
+  Hive.registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
+
+  await Hive.openBox(tokenBox);
   await Hive.openBox(databaseBox);
+  await Hive.openBox(activityBox);
 
   FlavorSettings.development();
   await bootstrap(() => DevicePreview(builder: (context) => const App()));
@@ -31,7 +36,7 @@ Future<void> main() async {
   ///[console] flavor running
   if (!kReleaseMode) {
     final settings = EnvConfig.getInstance();
-    log('🚀 APP FLAVOR NAME      : ${settings.flavorName}', name: 'ENV');
-    log('🚀 APP API_BASE_URL     : ${settings.apiBaseUrl}', name: 'ENV');
+    log('🚀 APP FLAVOR NAME      : Development');
+    log('🚀 APP API_BASE_URL     : ${FlavorSettings.development().apiBaseUrl}');
   }
 }

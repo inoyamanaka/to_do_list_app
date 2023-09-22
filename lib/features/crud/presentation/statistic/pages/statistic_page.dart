@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:show_up_animation/show_up_animation.dart';
+import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/presentation/statistic/widgets/stat_bar.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
@@ -14,10 +16,13 @@ class StatisticPage extends StatefulWidget {
 }
 
 List<double> percentBar = [0.45, 0.54, 0.87, 0.33, 0.60, 0.15];
+final CrudController statistic = Get.find<CrudController>();
 
 class _StatisticPageState extends State<StatisticPage> {
   @override
   Widget build(BuildContext context) {
+    statistic.getStatistic();
+    print(statistic.statistic_result);
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
@@ -60,8 +65,8 @@ class _StatisticPageState extends State<StatisticPage> {
                     ),
                     Column(
                       children: [
-                        Text('309/400', style: MyTypography.bodySmall),
-                        Text('Task Completed', style: MyTypography.bodySmall),
+                        Text('50%', style: MyTypography.bodySmall),
+                        Text('Completion Rate', style: MyTypography.bodySmall),
                       ],
                     ),
                   ],

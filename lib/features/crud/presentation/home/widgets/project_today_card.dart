@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_function_return_type
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,9 +9,11 @@ import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 class ProjectCard extends StatelessWidget {
   const ProjectCard({
     required this.result,
+    required this.onComplete,
     super.key,
   });
   final DataModel result;
+  final Function() onComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +82,17 @@ class ProjectCard extends StatelessWidget {
                               style: MyTypography.labelMedium,
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ],
                 ),
-                const Icon(
-                  FontAwesomeIcons.listUl,
-                  color: Colors.white,
+                IconButton(
+                  onPressed: onComplete,
+                  icon: const Icon(
+                    FontAwesomeIcons.listUl,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
