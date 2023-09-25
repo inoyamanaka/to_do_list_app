@@ -9,5 +9,6 @@ part 'login_response.g.dart';
 class LoginModel extends LoginEntity {
   LoginModel({required super.access_token, required super.token_type});
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
+  factory LoginModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginModelFromJson(json);
 }

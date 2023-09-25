@@ -8,7 +8,10 @@ class LocalGetStatisticUseCase {
   final StatisticRepository repository;
 
   Future<List<StatisticDataModel>> call(NoParams params) {
-    print('sampee maro');
     return repository.countLocalActivity();
+  }
+
+  Future<void> update(String category, StatisticDataModel data) {
+    return repository.updateStatistic(category, data);
   }
 }

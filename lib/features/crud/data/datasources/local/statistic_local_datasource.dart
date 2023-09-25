@@ -7,6 +7,7 @@ import 'package:to_do_list_app/infrastructure/constants/constant.dart';
 abstract class StatisticLocalDataSource {
   // Future<Iterable<DataModel>> addLocalActivity();
   Future<List<StatisticDataModel>> countLocalActivity();
+  Future<void> updateStatistic(String category, StatisticDataModel data);
 }
 
 class StatisticocalDataSourceImpl implements StatisticLocalDataSource {
@@ -14,7 +15,6 @@ class StatisticocalDataSourceImpl implements StatisticLocalDataSource {
 
   @override
   Future<List<StatisticDataModel>> countLocalActivity() async {
-    print('sampe sini');
     if (item.get('Olahraga') == null) {
       await item.put('Olahraga', StatisticDataModel('Olahraga', 0, 0));
     }
@@ -43,5 +43,12 @@ class StatisticocalDataSourceImpl implements StatisticLocalDataSource {
         List<StatisticDataModel>.from(item.values.cast<StatisticDataModel>());
     print(values);
     return values;
+  }
+
+  @override
+  Future<void> updateStatistic(String category, StatisticDataModel data) async {
+    await item.put(category, data);
+    final values = item.values.cast<StatisticDataModel>();
+    print(values);
   }
 }

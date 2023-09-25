@@ -1,4 +1,4 @@
-// ignore_for_file: use_full_hex_values_for_flutter_colors
+// ignore_for_file: use_full_hex_values_for_flutter_colors, await_only_futures
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,14 +15,42 @@ class StatisticPage extends StatefulWidget {
   State<StatisticPage> createState() => _StatisticPageState();
 }
 
-List<double> percentBar = [0.45, 0.54, 0.87, 0.33, 0.60, 0.15];
 final CrudController statistic = Get.find<CrudController>();
+
+int totalComplete = 0;
+int totalOngGoing = 0;
+int totalPercent = 0;
 
 class _StatisticPageState extends State<StatisticPage> {
   @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  @override
+  void dispose() {
+    totalComplete = 0;
+    totalOngGoing = 0;
+    totalPercent = 0;
+    super.dispose();
+  }
+
+  Future<void> fetchData() async {
+    await statistic.getStatistic();
+    final result = await statistic.statistic_result;
+
+    for (var i = 0; i < result[0].length; i++) {
+      totalComplete += result[0][i].categoryFinished!;
+      totalOngGoing += result[0][i].categoryOngoing!;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     statistic.getStatistic();
-    print(statistic.statistic_result);
+
+    final result = statistic.statistic_result;
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
@@ -57,7 +85,7 @@ class _StatisticPageState extends State<StatisticPage> {
                     Column(
                       children: [
                         Text(
-                          '309/400',
+                          '$totalComplete/$totalOngGoing',
                           style: MyTypography.bodySmall,
                         ),
                         Text('Task Completed', style: MyTypography.bodySmall),
@@ -65,7 +93,7 @@ class _StatisticPageState extends State<StatisticPage> {
                     ),
                     Column(
                       children: [
-                        Text('50%', style: MyTypography.bodySmall),
+                        Text('$totalPercent%', style: MyTypography.bodySmall),
                         Text('Completion Rate', style: MyTypography.bodySmall),
                       ],
                     ),
@@ -82,8 +110,12 @@ class _StatisticPageState extends State<StatisticPage> {
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 6,
-                    itemBuilder: (context, index) =>
-                        progressBar(percentBar[index], index),
+                    itemBuilder: (context, index) => progressBar(
+                      percentBar[index],
+                      index,
+                      result[0][index].categoryOngoing!,
+                      result[0][index].categoryFinished!,
+                    ),
                   ),
                 ),
                 SizedBox(height: 10.h),
@@ -98,7 +130,12 @@ class _StatisticPageState extends State<StatisticPage> {
                     itemCount: 6,
                     itemBuilder: (context, index) => ShowUpAnimation(
                       delayStart: Duration(milliseconds: 50 * index),
-                      child: categoryBar(index),
+                      child: categoryColumn(
+                        index,
+                        result[0][index].nameCategory!,
+                        result[0][index].categoryOngoing!,
+                        result[0][index].categoryFinished!,
+                      ),
                     ),
                   ),
                 ),

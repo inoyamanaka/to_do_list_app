@@ -1,5 +1,3 @@
-// ignore_for_file: inference_failure_on_uninitialized_variable, type_annotate_public_apis, prefer_typing_uninitialized_variables, avoid_dynamic_calls, inference_failure_on_function_invocation, prefer_final_locals, omit_local_variable_types
-
 import 'package:flutter/material.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +9,7 @@ import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/components/function.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
+import 'package:to_do_list_app/features/crud/presentation/statistic/pages/statistic_page.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class AddActivityPage extends StatefulWidget {
@@ -32,17 +31,23 @@ class _AddActivityPageState extends State<AddActivityPage> {
   TextEditingController startInput = TextEditingController();
   TextEditingController finishInput = TextEditingController();
 
+  int categoryOnGoing = 0;
   final CrudController c = Get.find<CrudController>();
+
+  Future<void> fetchData() async {
+    await statistic.getStatistic();
+  }
 
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-
+    print(c.statistic_result.isEmpty);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -188,14 +193,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
                     GestureDetector(
                       onTap: () async {
                         if (formKey.currentState!.validate()) {
-                          await createDataModelAndScheduleNotification(
-                            name: nameInput.text,
-                            category: optionSelected,
-                            date: dateInput.text,
-                            startTime: startInput.text,
-                            finishTime: finishInput.text,
-                            selectedDate: selectedDate!,
-                          );
+                          await updateStatisticActivity(context);
                         }
                       },
                       child: Container(
@@ -215,7 +213,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
                             Text(
                               'CREATE TASK',
                               style: MyTypography.bodyMedium,
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -227,6 +225,35 @@ class _AddActivityPageState extends State<AddActivityPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> updateStatisticActivity(BuildContext context) async {
+    if (c.statistic_result.isNotEmpty) {
+      categoryOnGoing = 0;
+
+      for (final dataModel in c.statistic_result[0]) {
+        if (dataModel.nameCategory == optionSelected) {
+          categoryOnGoing = dataModel.categoryOngoing!;
+          categoryOnGoing += 1;
+
+          break;
+        }
+      }
+    } else {
+      categoryOnGoing += 1;
+    }
+
+    await createDataModelAndScheduleNotification(
+      name: nameInput.text,
+      category: optionSelected,
+      date: dateInput.text,
+      startTime: startInput.text,
+      finishTime: finishInput.text,
+      selectedDate: selectedDate!,
+      onFinish: 0,
+      onGoing: categoryOnGoing,
+      context: context
     );
   }
 }

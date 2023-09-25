@@ -45,6 +45,11 @@ class CrudController extends GetxController
   }
 
   Future<void> getStatistic() async {
-    await localGetStatisticUseCase.call(NoParams());
+    final response = await localGetStatisticUseCase.call(NoParams());
+    statistic_result.assign(response);
+  }
+
+  Future<void> updateStatistic(String category, StatisticDataModel data) async {
+    final response = await localGetStatisticUseCase.update(category, data);
   }
 }
