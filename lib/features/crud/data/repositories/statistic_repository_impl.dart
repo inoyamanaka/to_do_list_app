@@ -9,7 +9,11 @@ class StatisticRepositoryImpl implements StatisticRepository {
 
   @override
   Future<List<StatisticDataModel>> countLocalActivity() {
-    print('sampe dimisi');
     return dataSource.countLocalActivity();
+  }
+
+  @override
+  Future<void> updateStatistic(String category, StatisticDataModel data) {
+    return dataSource.updateStatistic(category, data);
   }
 }

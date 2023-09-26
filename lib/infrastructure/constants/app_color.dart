@@ -45,3 +45,36 @@ List<List<Color>> colorList = [
     const Color(0xff9986f000),
   ]
 ];
+
+List<LinearGradient> colorSchedule = [
+  const LinearGradient(
+    colors: [Color(0xff536976), Color(0xff292e49)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xffeb3349), Color(0xfff45c43)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xff16222a), Color(0xff3a6073)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xff1488cc), Color(0xff2b32b2)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xffe52d27), Color(0xffb31217)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xfffe8c00), Color(0xfff83600)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xffe53935), Color(0xffe35d5b)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xff41295a), Color(0xff2f0743)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xffc31432), Color(0xff240b36)],
+  ),
+  const LinearGradient(
+    colors: [Color(0xffe43a15), Color(0xffe65245)],
+  ),
+];

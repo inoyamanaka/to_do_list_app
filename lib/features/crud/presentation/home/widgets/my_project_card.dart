@@ -44,7 +44,7 @@ class MyProjectCard extends StatelessWidget {
                 Icon(
                   FontAwesomeIcons.lightbulb,
                   color: Color(0xff33363F),
-                )
+                ),
               ],
             ),
             SizedBox(height: 10.h),
@@ -69,7 +69,7 @@ class MyProjectCard extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [Text('Progress'), Text('40%')],
-            )
+            ),
           ],
         ),
       ),

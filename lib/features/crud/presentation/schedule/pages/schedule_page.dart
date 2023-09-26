@@ -49,7 +49,7 @@ class SchedulePage extends StatelessWidget {
                 SizedBox(
                   width: 100,
                   child: Text('In Progress', style: MyTypography.bodySmall),
-                )
+                ),
               ],
             ),
           ),
@@ -97,6 +97,7 @@ class SchedulePage extends StatelessWidget {
                         name: activity.result[0][index].name!,
                         startTime: activity.result[0][index].startTime!,
                         finishTime: activity.result[0][index].finishTime!,
+                        index: index
                       ),
                     ),
                   ),
@@ -117,7 +118,7 @@ class SchedulePage extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

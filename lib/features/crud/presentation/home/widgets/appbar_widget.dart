@@ -18,21 +18,28 @@ class AppBarWidget extends StatelessWidget {
     final monthName = DateFormat('MMMM').format(presentTime);
     final year = presentTime.year;
 
-    return AppBar(
-      backgroundColor: Colors.white,
+    return SliverAppBar(
+      toolbarHeight: 80,
       elevation: 0,
       titleSpacing: 10.w,
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff2b5876), Color(0xff4e4376)],
+          ),
+        ),
+      ),
       centerTitle: false,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Kirito',
-            style: MyTypography.bodySmall,
+            style: MyTypography.bodySmall.copyWith(color: Colors.white),
           ),
           Text(
             '$dayName, $day $monthName $year',
-            style: MyTypography.bodyTiny,
+            style: MyTypography.bodyTiny.copyWith(color: Colors.white),
           ),
         ],
       ),
@@ -43,7 +50,7 @@ class AppBarWidget extends StatelessWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.search),
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () {},
         ),
       ],

@@ -31,7 +31,7 @@ class DateCard extends StatelessWidget {
           const SizedBox(height: 15),
           Text(date.toString()),
           const SizedBox(height: 15),
-          Text(days[index])
+          Text(days[index]),
         ],
       ),
     );

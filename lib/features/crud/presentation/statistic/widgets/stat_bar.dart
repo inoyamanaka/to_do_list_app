@@ -19,10 +19,19 @@ List<double> percentBar = [0.45, 0.54, 0.87, 0.33, 0.60, 0.15];
 Column progressBar(
   double value,
   int index,
+  int onGoing,
+  int finish,
 ) {
+  final double decimal;
+  if (onGoing == 0 && finish == 0) {
+    decimal = 0;
+  } else {
+    decimal = finish / onGoing;
+  }
   return Column(
     children: [
       Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             side: const BorderSide(strokeAlign: 1),
@@ -35,7 +44,7 @@ Column progressBar(
           curve: Curves.easeInOut,
           tween: Tween<double>(
             begin: 0,
-            end: value,
+            end: decimal,
           ),
           builder: (context, value, child) => LinearProgressIndicator(
             minHeight: 25.h,
@@ -50,7 +59,14 @@ Column progressBar(
   );
 }
 
-Column categoryBar(int index) {
+Column categoryColumn(int index, String category, int onGoing, int finish) {
+  final int percentage;
+  if (onGoing == 0 && finish == 0) {
+    percentage = 0;
+  } else {
+    percentage = ((finish / onGoing) * 100).toInt();
+  }
+
   return Column(
     children: [
       Row(
@@ -72,18 +88,18 @@ Column categoryBar(int index) {
                 ),
                 SizedBox(width: 10.w),
                 Text(
-                  categoryList[index],
+                  category,
                   style: MyTypography.bodyTiny,
                 ),
               ],
             ),
           ),
           Text(
-            '191/202',
+            '$finish/$onGoing',
             style: MyTypography.bodyTiny,
           ),
           Text(
-            '12%',
+            '$percentage%',
             style: MyTypography.bodyTiny,
           ),
         ],

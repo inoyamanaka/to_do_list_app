@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:to_do_list_app/infrastructure/constants/app_color.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class TimelineCard extends StatelessWidget {
@@ -9,6 +10,7 @@ class TimelineCard extends StatelessWidget {
     required this.name,
     required this.startTime,
     required this.finishTime,
+    required this.index,
     super.key,
   });
 
@@ -16,6 +18,7 @@ class TimelineCard extends StatelessWidget {
   final String name;
   final String startTime;
   final String finishTime;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class TimelineCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
-        color: const Color(0xff82B0BC),
+        gradient: colorSchedule[index % colorSchedule.length],
       ),
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -58,9 +61,9 @@ class TimelineCard extends StatelessWidget {
               Text(
                 '$startTime - $finishTime',
                 style: MyTypography.bodyTinyWhite,
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

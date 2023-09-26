@@ -23,8 +23,8 @@ Future<void> main() async {
 
   await Hive.initFlutter();
 
-  Hive.registerAdapter<DataModel>(DataModelAdapter());
-  Hive.registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
+  Hive..registerAdapter<DataModel>(DataModelAdapter())
+  ..registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
 
   await Hive.openBox(tokenBox);
   await Hive.openBox(databaseBox);
@@ -35,7 +35,6 @@ Future<void> main() async {
 
   ///[console] flavor running
   if (!kReleaseMode) {
-    final settings = EnvConfig.getInstance();
     log('🚀 APP FLAVOR NAME      : Development');
     log('🚀 APP API_BASE_URL     : ${FlavorSettings.development().apiBaseUrl}');
   }
