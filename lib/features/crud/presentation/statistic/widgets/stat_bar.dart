@@ -23,7 +23,7 @@ Column progressBar(
   int finish,
 ) {
   final double decimal;
-  if (onGoing == 0 && finish == 0) {
+  if (finish == 0) {
     decimal = 0;
   } else {
     decimal = finish / onGoing;
@@ -61,9 +61,12 @@ Column progressBar(
 
 Column categoryColumn(int index, String category, int onGoing, int finish) {
   final int percentage;
-  if (onGoing == 0 && finish == 0) {
+  if (finish == 0) {
     percentage = 0;
   } else {
+    print(onGoing);
+    print(finish);
+    print((finish / onGoing) * 100);
     percentage = ((finish / onGoing) * 100).toInt();
   }
 
@@ -99,7 +102,7 @@ Column categoryColumn(int index, String category, int onGoing, int finish) {
             style: MyTypography.bodyTiny,
           ),
           Text(
-            '$percentage%',
+            '100%',
             style: MyTypography.bodyTiny,
           ),
         ],

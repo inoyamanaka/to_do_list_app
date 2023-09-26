@@ -88,7 +88,8 @@ class _AddActivityPageState extends State<AddActivityPage> {
                 child: Form(
                   key: formKey,
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -187,7 +188,6 @@ class _AddActivityPageState extends State<AddActivityPage> {
                             6,
                             (int index) {
                               return ChoiceChip(
-                                padding: const EdgeInsets.all(8),
                                 label: Text(
                                   options[index],
                                   style: index == _value

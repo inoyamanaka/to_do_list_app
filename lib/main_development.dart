@@ -2,7 +2,6 @@
 
 import 'dart:developer';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,7 +11,6 @@ import 'package:to_do_list_app/bootstrap.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/infrastructure/constants/constant.dart';
-import 'package:to_do_list_app/infrastructure/env/env_config.dart';
 import 'package:to_do_list_app/infrastructure/env/flavor.dart';
 import 'package:to_do_list_app/infrastructure/utils/notification.dart';
 
@@ -23,15 +21,16 @@ Future<void> main() async {
 
   await Hive.initFlutter();
 
-  Hive..registerAdapter<DataModel>(DataModelAdapter())
-  ..registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
+  Hive
+    ..registerAdapter<DataModel>(DataModelAdapter())
+    ..registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
 
   await Hive.openBox(tokenBox);
   await Hive.openBox(databaseBox);
   await Hive.openBox(activityBox);
 
   FlavorSettings.development();
-  await bootstrap(() => DevicePreview(builder: (context) => const App()));
+  await bootstrap(() => const App());
 
   ///[console] flavor running
   if (!kReleaseMode) {

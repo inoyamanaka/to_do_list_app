@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                                       1;
                                   final int onGoing = c
                                       .statistic_result[0][index]
-                                      .categoryOngoing!;
+                                      .categoryOngoing! + 1;
                                   final String category = c
                                       .statistic_result[0][index].nameCategory!;
                                   final statisticModel = StatisticDataModel(

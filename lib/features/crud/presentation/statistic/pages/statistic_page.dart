@@ -44,12 +44,11 @@ class _StatisticPageState extends State<StatisticPage> {
       totalComplete += result[0][i].categoryFinished!;
       totalOngGoing += result[0][i].categoryOngoing!;
     }
+    totalPercent = ((totalComplete / totalOngGoing) * 100).toInt();
   }
 
   @override
   Widget build(BuildContext context) {
-    statistic.getStatistic();
-
     final result = statistic.statistic_result;
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(

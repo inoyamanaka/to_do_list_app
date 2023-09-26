@@ -39,8 +39,8 @@ Future<void> createDataModelAndScheduleNotification({
   // Penjadwalan notifikasi
   try {
     await NotificationService().scheduleNotification(
-      title: 'Scheduled Notification',
-      body: '$selectedDate',
+      title: 'Sudah waktunya....',
+      body: '$startTime - $name',
       scheduledNotificationDateTime: selectedDate,
     );
   } catch (e) {

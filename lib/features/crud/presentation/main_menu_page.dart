@@ -69,32 +69,43 @@ class _MyMenuPageState extends State<MyMenuPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomBarFloating(
-        items: items,
-        backgroundColor: Colors.white,
-        color: Colors.grey,
-        colorSelected: Colors.black,
-        indexSelected: selectedIndex,
-        paddingVertical: 24,
-        onTap: (int index) => setState(() {
-          selectedIndex = index;
-          _tabController.index = index;
-        }),
-        top: -25,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(),
+        child: BottomBarFloating(
+          items: items,
+          backgroundColor: Colors.white,
+          color: Colors.grey,
+          colorSelected: Colors.black,
+          indexSelected: selectedIndex,
+          paddingVertical: 14,
+          pad: 10,
+          onTap: (int index) => setState(() {
+            selectedIndex = index;
+            _tabController.index = index;
+          }),
+          top: -25,
+        ),
       ),
-      body: Navigator(
-        key: _navKey,
-        onGenerateRoute: (_) => SwipeablePageRoute(
-          transitionBuilder:
-              (context, animation, secondaryAnimation, isSwipeGesture, child) =>
-                  FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-          canOnlySwipeFromEdge: true,
-          builder: (_) => TabBarView(
-            controller: _tabController,
-            children: page,
+      body: SafeArea(
+        child: Navigator(
+          key: _navKey,
+          onGenerateRoute: (_) => SwipeablePageRoute(
+            transitionBuilder: (
+              context,
+              animation,
+              secondaryAnimation,
+              isSwipeGesture,
+              child,
+            ) =>
+                FadeTransition(
+              opacity: animation,
+              child: child,
+            ),
+            canOnlySwipeFromEdge: true,
+            builder: (_) => TabBarView(
+              controller: _tabController,
+              children: page,
+            ),
           ),
         ),
       ),
