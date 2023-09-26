@@ -50,6 +50,6 @@ class CrudController extends GetxController
   }
 
   Future<void> updateStatistic(String category, StatisticDataModel data) async {
-    final response = await localGetStatisticUseCase.update(category, data);
+    await localGetStatisticUseCase.update(category, data);
   }
 }
