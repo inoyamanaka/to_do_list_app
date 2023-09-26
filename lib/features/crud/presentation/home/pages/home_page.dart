@@ -8,6 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
+import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/appbar_widget.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/project_today_card.dart';
@@ -34,126 +35,154 @@ class _HomePageState extends State<HomePage> {
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(65),
-          child: AppBarWidget(),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            width: screenSize.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(35.r),
-                topLeft: Radius.circular(35.r),
-              ),
-              color: const Color(0xffF3F3F3),
+        body: DecoratedBox(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xff2b5876), Color(0xff4e4376)],
             ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AutoSizeText(
-                        'My Projects',
-                        style: MyTypography.bodySmall,
-                      ),
-                      AutoSizeText(
-                        'Show all',
-                        style: MyTypography.bodySmall,
-                      ),
-                    ],
+          ),
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [const AppBarWidget()];
+            },
+            body: SingleChildScrollView(
+              child: Container(
+                width: screenSize.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(35.r),
+                    topLeft: Radius.circular(35.r),
                   ),
+                  color: const Color(0xffF3F3F3),
                 ),
-                ShowUpAnimation(
-                  child: SizedBox(
-                    height: 220,
-                    child: ListView.builder(
-                      itemCount: 4,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const FittedBox(child: MyProjectCard()),
-                          SizedBox(width: 10.w),
+                          AutoSizeText(
+                            'My Projects',
+                            style: MyTypography.bodySmall,
+                          ),
+                          AutoSizeText(
+                            'Show all',
+                            style: MyTypography.bodySmall,
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AutoSizeText(
-                        'My Projects',
-                        style: MyTypography.bodySmall,
-                      ),
-                      AutoSizeText(
-                        'Show all',
-                        style: MyTypography.bodySmall,
-                      ),
-                    ],
-                  ),
-                ),
-                ShowUpAnimation(
-                  delayStart: const Duration(milliseconds: 200),
-                  child: SizedBox(
-                    height: 450,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                          c.result[0].length >= 3 ? 3 : c.result[0].length,
-                      itemBuilder: (context, index) => Slidable(
-                        key: UniqueKey(),
-                        startActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          dismissible: DismissiblePane(
-                            onDismissed: () {
-                              c.deleteActivity(index);
-                              c.getActivity();
-                            },
+                    ShowUpAnimation(
+                      child: SizedBox(
+                        height: 220,
+                        child: ListView.builder(
+                          itemCount: 4,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const FittedBox(child: MyProjectCard()),
+                              SizedBox(width: 10.w),
+                            ],
                           ),
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) {},
-                              backgroundColor: const Color(0xFFFE4A49),
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: 'Delete',
-                            ),
-                          ],
-                        ),
-                        child: ProjectCard(
-                          onComplete: () {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              body: const Center(
-                                child: Text(
-                                  'Apakah Aktivitas Sudah Selesai',
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                ),
-                              ),
-                              title: 'This is Ignored',
-                              desc: 'This is also Ignored',
-                              btnCancelOnPress: () {},
-                              btnCancelText: 'Belum',
-                              btnOkOnPress: () {},
-                              btnOkText: 'Sudah',
-                            ).show();
-                          },
-                          result: c.result[0][index],
                         ),
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AutoSizeText(
+                            'My Projects',
+                            style: MyTypography.bodySmall,
+                          ),
+                          AutoSizeText(
+                            'Show all',
+                            style: MyTypography.bodySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                    ShowUpAnimation(
+                      delayStart: const Duration(milliseconds: 200),
+                      child: SizedBox(
+                        height: 480,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount:
+                              c.result[0].length >= 3 ? 3 : c.result[0].length,
+                          itemBuilder: (context, index) => Slidable(
+                            key: UniqueKey(),
+                            startActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              dismissible: DismissiblePane(
+                                onDismissed: () {
+                                  final int onFinish = c
+                                          .statistic_result[0][index]
+                                          .categoryFinished! +
+                                      1;
+                                  final int onGoing = c
+                                      .statistic_result[0][index]
+                                      .categoryOngoing!;
+                                  final String category = c
+                                      .statistic_result[0][index].nameCategory!;
+                                  final statisticModel = StatisticDataModel(
+                                    category,
+                                    onFinish,
+                                    onGoing,
+                                  );
+                                  c
+                                    ..updateStatistic(category, statisticModel)
+                                    ..deleteActivity(index)
+                                    ..getActivity();
+                                },
+                              ),
+                              children: [
+                                SlidableAction(
+                                  onPressed: (context) {},
+                                  backgroundColor: const Color(0xFFFE4A49),
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.delete,
+                                  label: 'Delete',
+                                ),
+                              ],
+                            ),
+                            child: ProjectCard(
+                              index: index,
+                              onComplete: () {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.warning,
+                                  body: const Center(
+                                    child: Text(
+                                      'Apakah Aktivitas Sudah Selesai',
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ),
+                                  title: 'This is Ignored',
+                                  desc: 'This is also Ignored',
+                                  btnCancelOnPress: () {},
+                                  btnCancelText: 'Belum',
+                                  btnOkOnPress: () {},
+                                  btnOkText: 'Sudah',
+                                ).show();
+                              },
+                              result: c.result[0][index],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

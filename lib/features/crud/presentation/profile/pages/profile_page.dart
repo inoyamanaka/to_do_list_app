@@ -16,21 +16,23 @@ class _ProfilePageState extends State<ProfilePage> {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Profile User',
-          style: MyTypography.bodySmall,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
-        child: SizedBox(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xff2b5876), Color(0xff4e4376)],
+            ),
+          ),
           width: screenSize.width,
           height: screenSize.height,
           child: Column(
             children: [
+              SizedBox(height: 20.h),
+              Text(
+                'Profile User',
+                style: MyTypography.bodySmall,
+              ),
+              SizedBox(height: 10.h),
               CircleAvatar(
                 radius: 60.r,
               ),

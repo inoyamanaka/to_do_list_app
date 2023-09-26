@@ -31,6 +31,7 @@ Column progressBar(
   return Column(
     children: [
       Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             side: const BorderSide(strokeAlign: 1),
