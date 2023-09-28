@@ -12,7 +12,6 @@ class LocalVerificationDatasourceImpl implements LocalVerificationDatasource {
   final box = Hive.box(tokenBox);
   @override
   Future<void> addToken(LoginEntity data) async {
-    await box.add(data.access_token);
-    print(box);
+    await box.add(data.accessToken);
   }
 }

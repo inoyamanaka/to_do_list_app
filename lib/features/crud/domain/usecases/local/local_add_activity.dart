@@ -6,7 +6,7 @@ class LocalAddActivityUseCase {
 
   final LocalActivityRepository repository;
 
-  Future<void> call(DataModel body) {
+  Future<void> call(Activity body) {
     return repository.addLocalActivity(body);
   }
 }

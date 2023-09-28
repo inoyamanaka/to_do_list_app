@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
+// ignore_for_file: public_member_api_docs, sort_constructors_first,
 import 'package:json_annotation/json_annotation.dart';
 import 'package:to_do_list_app/features/crud/domain/entities/activity_entity.dart';
 
@@ -6,7 +6,7 @@ part 'activity_response.g.dart';
 
 @JsonSerializable(createToJson: false)
 class ActivityModel extends UserActivityEntity {
-  ActivityModel({
+  const ActivityModel({
     required super.email,
     required super.id,
     required super.isActive,
@@ -19,7 +19,7 @@ class ActivityModel extends UserActivityEntity {
 
 @JsonSerializable(createToJson: false)
 class DataActivityModel extends DataActivityEntity {
-  DataActivityModel({
+  const DataActivityModel({
     required super.title,
     required super.description,
     required super.category,

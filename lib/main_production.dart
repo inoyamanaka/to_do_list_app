@@ -21,11 +21,11 @@ Future<void> main() async {
 
   await Hive.initFlutter();
 
-  Hive.registerAdapter<DataModel>(DataModelAdapter());
+  // Hive.registerAdapter<DataModel>(DataModelAdapter());
   await Hive.openBox(databaseBox);
 
   FlavorSettings.development();
-  await bootstrap(() => App());
+  await bootstrap(App.new);
 
   ///[console] flavor running
   if (!kReleaseMode) {

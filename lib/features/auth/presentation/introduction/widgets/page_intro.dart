@@ -7,7 +7,7 @@ PageViewModel holidayPage() {
   return PageViewModel(
     title: 'Holiday',
     body:
-        'Experience new horizons, adventure, and relaxation on your holiday getaway!',
+        '''Experience new horizons, adventure, and relaxation on your holiday getaway!''',
     image: Center(
       child: Lottie.asset(
         'assets/lotties/beach.json',
@@ -53,7 +53,7 @@ PageViewModel readingPage() {
   return PageViewModel(
     title: 'Reading',
     body:
-        'Explore new worlds, knowledge, and imagination through books. Begin your journey',
+        '''Explore new worlds, knowledge, and imagination through books. Begin your journey''',
     image: Lottie.asset(
       'assets/lotties/reading_book.json',
       height: 250,

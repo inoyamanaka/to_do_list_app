@@ -6,4 +6,3 @@ List<String> options = [
   'Ibadah',
   'Hobi',
 ];
-

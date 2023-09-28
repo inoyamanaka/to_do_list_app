@@ -54,7 +54,7 @@ class MyProjectCard extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             AutoSizeText(
-              'Lorem ipsum dolor si jamet dan kawan-kawan sedang berjalan .....',
+              '''Lorem ipsum dolor si jamet dan kawan-kawan sedang berjalan .....''',
               style: MyTypography.bodyTiny,
             ),
             const SizedBox(height: 20),

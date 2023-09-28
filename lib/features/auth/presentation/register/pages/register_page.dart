@@ -1,5 +1,4 @@
-// ignore_for_file: inference_failure_on_instance_creation, unawaited_futures, inference_failure_on_function_invocation
-
+// ignore_for_file: inference_failure_on_instance_creation, unawaited_futures,
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -106,7 +105,7 @@ class RegisterPage extends StatelessWidget {
                               password: password.text,
                             ),
                           );
-                          Get.toNamed(Routes.login);
+                          Get.toNamed<void>(Routes.login);
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(15),
@@ -149,7 +148,7 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                          Get.toNamed(Routes.login);
+                          Get.toNamed<void>(Routes.login);
                         },
                       ),
                       SizedBox(height: 30.h),

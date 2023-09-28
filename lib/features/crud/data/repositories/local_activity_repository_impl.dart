@@ -7,18 +7,19 @@ class LocalActivityRepositoryImpl implements LocalActivityRepository {
 
   final ActivityLocalDataSource dataSource;
   @override
-  Future<List<DataModel>> getLocalActivity() async {
+  Future<List<Activity>> getLocalActivity() async {
     final getActivity = await dataSource.getLocalActivity();
     return getActivity;
   }
 
   @override
-  Future<void> addLocalActivity(DataModel body) async {
+  Future<void> addLocalActivity(Activity body) async {
+    // print(body);
     await dataSource.addLocalActivity(body);
   }
-  
+
   @override
   Future<void> deleteLocalActivity(int index) async {
-     await dataSource.deleteLocalActivity(index);
+    await dataSource.deleteLocalActivity(index);
   }
 }

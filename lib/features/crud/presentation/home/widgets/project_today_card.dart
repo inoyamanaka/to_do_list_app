@@ -20,91 +20,89 @@ class ProjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 8,
-        ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: colorSchedule[index % colorSchedule.length],
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-              ),
-              padding: EdgeInsets.all(15.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 40,
-                        child:
-                            Image.asset('assets/images/${result.category}.png'),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            result.category ?? '',
-                            style: MyTypography.bodySmallWhite,
+    return SizedBox(
+      width: double.infinity,
+      child: FittedBox(
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 8,
+          ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  gradient: colorSchedule[index % colorSchedule.length],
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+                ),
+                padding: EdgeInsets.all(10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 25,
+                          child: Image.asset(
+                            'assets/images/${result.category}.png',
                           ),
-                          Text(
-                            result.name ?? '',
-                            style: MyTypography.bodyMedium,
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.watch,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                '${result.startTime}-${result.finishTime}',
-                                style: MyTypography.labelMedium,
-                              ),
-                              SizedBox(
-                                width: 15.w,
-                              ),
-                              const Icon(
-                                FontAwesomeIcons.circleCheck,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                '1/4',
-                                style: MyTypography.labelMedium,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    onPressed: onComplete,
-                    icon: const Icon(
-                      FontAwesomeIcons.listUl,
-                      color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              result.category ?? '',
+                              style: MyTypography.bodySmallWhite
+                                  .copyWith(fontSize: 14),
+                            ),
+                            Text(
+                              result.name ?? '',
+                              style: MyTypography.bodyMedium
+                                  .copyWith(fontSize: 12),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.watch,
+                                  color: Colors.white,
+                                  size: 15,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  '${result.startTime}-${result.finishTime}',
+                                  style: MyTypography.labelMedium
+                                      .copyWith(fontSize: 10),
+                                ),
+                                SizedBox(
+                                  width: 15.w,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: onComplete,
+                      icon: const Icon(
+                        FontAwesomeIcons.listUl,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -53,7 +53,7 @@
 //           'url',
 //           options: any(named: 'options'),
 //         ),
-//       ).thenThrow(DioException(requestOptions: RequestOptions(path: 'path')));
+//       ).thenThrow(DioException(requestOptions: RequestOptions(path: 'path'));
 
 //       // act
 //       final response = activityRemoteDataSourceImpl.getActivity();

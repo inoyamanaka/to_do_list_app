@@ -5,5 +5,7 @@ import 'package:to_do_list_app/infrastructure/error/failures.dart';
 
 abstract class ActivityRepository {
   Future<Either<Failure, DataActivityEntity>> getActivity();
-  Future<Either<Failure, DataActivityEntity>> addActivity(DataActivityBody body);
+  Future<Either<Failure, DataActivityEntity>> addActivity(
+    DataActivityBody body,
+  );
 }

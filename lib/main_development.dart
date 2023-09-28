@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   Hive
+    ..registerAdapter<Activity>(ActivityAdapter())
     ..registerAdapter<DataModel>(DataModelAdapter())
     ..registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
 
@@ -30,7 +32,7 @@ Future<void> main() async {
   await Hive.openBox(activityBox);
 
   FlavorSettings.development();
-  await bootstrap(() => const App());
+  await bootstrap(() => DevicePreview(builder: (context) => const App()));
 
   ///[console] flavor running
   if (!kReleaseMode) {

@@ -1,14 +1,14 @@
 // ignore_for_file: unused_local_variable, omit_local_variable_types
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
-import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/components/function.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/appbar_widget.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/project_today_card.dart';
@@ -21,17 +21,18 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-final CrudController c = Get.find<CrudController>();
+final CrudController result = Get.find<CrudController>();
 
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    c.getActivity();
+    result.getActivity();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(result.result[0]);
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
@@ -109,75 +110,55 @@ class _HomePageState extends State<HomePage> {
                     ShowUpAnimation(
                       delayStart: const Duration(milliseconds: 200),
                       child: SizedBox(
-                        height: 480,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.zero,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount:
-                              c.result[0].length >= 3 ? 3 : c.result[0].length,
-                          itemBuilder: (context, index) => Slidable(
-                            key: UniqueKey(),
-                            startActionPane: ActionPane(
-                              motion: const ScrollMotion(),
-                              dismissible: DismissiblePane(
-                                onDismissed: () {
-                                  final int onFinish = c
-                                          .statistic_result[0][index]
-                                          .categoryFinished! +
-                                      1;
-                                  final int onGoing = c
-                                      .statistic_result[0][index]
-                                      .categoryOngoing! + 1;
-                                  final String category = c
-                                      .statistic_result[0][index].nameCategory!;
-                                  final statisticModel = StatisticDataModel(
-                                    category,
-                                    onFinish,
-                                    onGoing,
-                                  );
-                                  c
-                                    ..updateStatistic(category, statisticModel)
-                                    ..deleteActivity(index)
-                                    ..getActivity();
-                                },
-                              ),
-                              children: [
-                                SlidableAction(
-                                  onPressed: (context) {},
-                                  backgroundColor: const Color(0xFFFE4A49),
-                                  foregroundColor: Colors.white,
-                                  icon: Icons.delete,
-                                  label: 'Delete',
+                        height:
+                            result.result[0].isEmpty ? 300 : (300.h + (55 * 3)),
+                        child: result.result[0].isEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.all(38),
+                                child: Lottie.asset(
+                                  'assets/lotties/sleep_cat.json',
+                                  fit: BoxFit.contain,
                                 ),
-                              ],
-                            ),
-                            child: ProjectCard(
-                              index: index,
-                              onComplete: () {
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.warning,
-                                  body: const Center(
-                                    child: Text(
-                                      'Apakah Aktivitas Sudah Selesai',
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                      ),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                padding: EdgeInsets.zero,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: result.result[0][0].data.length >= 3
+                                    ? 3
+                                    : result.result[0].length,
+                                itemBuilder: (context, index) => Slidable(
+                                  key: UniqueKey(),
+                                  startActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    dismissible: DismissiblePane(
+                                      onDismissed: () {
+                                        updateCategoryAndActivity(
+                                          result,
+                                          index,
+                                        );
+                                      },
                                     ),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {},
+                                        backgroundColor:
+                                            const Color(0xFFFE4A49),
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.delete,
+                                        label: 'Delete',
+                                      ),
+                                    ],
                                   ),
-                                  title: 'This is Ignored',
-                                  desc: 'This is also Ignored',
-                                  btnCancelOnPress: () {},
-                                  btnCancelText: 'Belum',
-                                  btnOkOnPress: () {},
-                                  btnOkText: 'Sudah',
-                                ).show();
-                              },
-                              result: c.result[0][index],
-                            ),
-                          ),
-                        ),
+                                  child: ProjectCard(
+                                    index: index,
+                                    onComplete: () {
+                                      showConfirmationDialog(context, () {});
+                                    },
+                                    result: result.result[0][0].data[index],
+                                  ),
+                                ),
+                              ),
                       ),
                     ),
                   ],

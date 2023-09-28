@@ -4,34 +4,34 @@
 import 'package:equatable/equatable.dart';
 
 class UserActivityEntity extends Equatable {
-  UserActivityEntity({
+  const UserActivityEntity({
     required this.email,
     required this.id,
     required this.isActive,
     required this.items,
   });
-  String email;
-  int id;
-  bool isActive;
-  List<DataActivityEntity> items;
+  final String email;
+  final int id;
+  final bool isActive;
+  final List<DataActivityEntity> items;
 
   @override
   List<Object?> get props => [email, id, isActive, items];
 }
 
 class DataActivityEntity extends Equatable {
-  DataActivityEntity({
+  const DataActivityEntity({
     required this.title,
     required this.description,
     required this.category,
     required this.id,
     required this.ownerId,
   });
-  String title;
-  String description;
-  String category;
-  int id;
-  int ownerId;
+  final String title;
+  final String description;
+  final String category;
+  final int id;
+  final int ownerId;
 
   @override
   List<Object?> get props => [title, description, category, id, ownerId];

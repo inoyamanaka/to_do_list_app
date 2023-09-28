@@ -22,20 +22,20 @@ void main() {
 
   group('Get activity use case', () {
     test('should return Activity Entity', () async {
-      final response = DataActivityEntity(
-      title: 'Makan siang',
-      description: 'Makan di restoran',
-      category: 'Makanan',
-      id: 1,
-      ownerId: 1,
-    );
+      const response = DataActivityEntity(
+        title: 'Makan siang',
+        description: 'Makan di restoran',
+        category: 'Makanan',
+        id: 1,
+        ownerId: 1,
+      );
       // arrange
       when(() => mockActivityRepository.getActivity())
-          .thenAnswer((invocation) async => Right(response));
+          .thenAnswer((invocation) async => const Right(response));
       // act
       final result = await getActivityUseCase.call(NoParams());
       // assert
-      expect(result, Right(response));
+      expect(result, const Right(response));
     });
 
     test('should return failure when fail', () async {

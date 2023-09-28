@@ -1,4 +1,4 @@
-// ignore_for_file: inference_failure_on_function_invocation, strict_raw_type, one_member_abstracts
+// ignore_for_file: inference_failure_on_function_invocation, strict_raw_type
 
 import 'package:hive/hive.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
@@ -41,14 +41,13 @@ class StatisticocalDataSourceImpl implements StatisticLocalDataSource {
 
     final values =
         List<StatisticDataModel>.from(item.values.cast<StatisticDataModel>());
-    print(values);
+
     return values;
   }
 
   @override
   Future<void> updateStatistic(String category, StatisticDataModel data) async {
     await item.put(category, data);
-    final values = item.values.cast<StatisticDataModel>();
-    print(values);
+    item.values.cast<StatisticDataModel>();
   }
 }

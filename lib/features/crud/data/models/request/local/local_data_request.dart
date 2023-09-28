@@ -1,9 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
 import 'package:hive/hive.dart';
 
 part 'local_data_request.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class StatisticDataModel extends HiveObject {
   StatisticDataModel(
     this.nameCategory,
