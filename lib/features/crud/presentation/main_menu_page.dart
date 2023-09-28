@@ -70,7 +70,7 @@ class _MyMenuPageState extends State<MyMenuPage>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: BottomBarFloating(
           items: items,
           backgroundColor: Colors.white,

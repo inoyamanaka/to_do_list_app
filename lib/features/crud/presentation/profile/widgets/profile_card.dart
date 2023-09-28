@@ -46,9 +46,9 @@ class ProfileCard extends StatelessWidget {
                       Text(
                         'Kaveh Uzumaki',
                         style: MyTypography.bodyTiny,
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 20.h),
@@ -68,9 +68,9 @@ class ProfileCard extends StatelessWidget {
                       Text(
                         'Kaveh Uzumaki',
                         style: MyTypography.bodyTiny,
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 20.h),
@@ -90,9 +90,9 @@ class ProfileCard extends StatelessWidget {
                       Text(
                         'Kaveh Uzumaki',
                         style: MyTypography.bodyTiny,
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 20.h),
@@ -112,7 +112,7 @@ class ProfileCard extends StatelessWidget {
                       Text(
                         'Kaveh Uzumaki',
                         style: MyTypography.bodyTiny,
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -135,7 +135,7 @@ class ProfileCard extends StatelessWidget {
                     Text(
                       'Log Out',
                       style: MyTypography.bodyMedium,
-                    )
+                    ),
                   ],
                 ),
               ),

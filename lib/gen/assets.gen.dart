@@ -36,9 +36,21 @@ class $AssetsImagesGen {
   AssetGenImage get decoration =>
       const AssetGenImage('assets/images/decoration.png');
 
+  /// File path: assets/images/ic_launcher.png
+  AssetGenImage get icLauncher =>
+      const AssetGenImage('assets/images/ic_launcher.png');
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [belajar, hiburan, hobi, ibadah, olahraga, pekerjaan, decoration];
+  List<AssetGenImage> get values => [
+        belajar,
+        hiburan,
+        hobi,
+        ibadah,
+        olahraga,
+        pekerjaan,
+        decoration,
+        icLauncher
+      ];
 }
 
 class $AssetsLottiesGen {
@@ -50,14 +62,21 @@ class $AssetsLottiesGen {
   /// File path: assets/lotties/gaming.json
   String get gaming => 'assets/lotties/gaming.json';
 
+  /// File path: assets/lotties/not_found.json
+  String get notFound => 'assets/lotties/not_found.json';
+
   /// File path: assets/lotties/reading_book.json
   String get readingBook => 'assets/lotties/reading_book.json';
+
+  /// File path: assets/lotties/sleep_cat.json
+  String get sleepCat => 'assets/lotties/sleep_cat.json';
 
   /// File path: assets/lotties/sport.json
   String get sport => 'assets/lotties/sport.json';
 
   /// List of all assets
-  List<String> get values => [beach, gaming, readingBook, sport];
+  List<String> get values =>
+      [beach, gaming, notFound, readingBook, sleepCat, sport];
 }
 
 class Assets {

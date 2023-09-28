@@ -23,8 +23,8 @@ class CrudController extends GetxController
   final LocalGetStatisticUseCase localGetStatisticUseCase;
 
   // state
-  RxList<List<DataModel>> result = <List<DataModel>>[].obs;
-  RxList<List<StatisticDataModel>> statistic_result =
+  RxList<List<Activity>> result = <List<Activity>>[].obs;
+  RxList<List<StatisticDataModel>> statisticResult =
       <List<StatisticDataModel>>[].obs;
 
   // loading
@@ -36,7 +36,8 @@ class CrudController extends GetxController
     result.assign(response);
   }
 
-  Future<void> addActivity(DataModel body) async {
+  Future<void> addActivity(Activity body) async {
+    // print(body);
     await localAddActivityUseCase.call(body);
   }
 
@@ -46,7 +47,7 @@ class CrudController extends GetxController
 
   Future<void> getStatistic() async {
     final response = await localGetStatisticUseCase.call(NoParams());
-    statistic_result.assign(response);
+    statisticResult.assign(response);
   }
 
   Future<void> updateStatistic(String category, StatisticDataModel data) async {

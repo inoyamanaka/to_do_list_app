@@ -38,7 +38,7 @@ class _StatisticPageState extends State<StatisticPage> {
 
   Future<void> fetchData() async {
     await statistic.getStatistic();
-    final result = await statistic.statistic_result;
+    final result = await statistic.statisticResult;
 
     for (var i = 0; i < result[0].length; i++) {
       totalComplete += result[0][i].categoryFinished!;
@@ -49,7 +49,7 @@ class _StatisticPageState extends State<StatisticPage> {
 
   @override
   Widget build(BuildContext context) {
-    final result = statistic.statistic_result;
+    final result = statistic.statisticResult;
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(

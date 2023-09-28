@@ -1,29 +1,36 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 part 'local_request.g.dart';
 
-
 @HiveType(typeId: 0)
-class DataModel extends HiveObject {
+class Activity extends HiveObject {
+  Activity(this.date, this.data,);
+
   @HiveField(0)
-  final String? name;
+  final String date;
 
   @HiveField(1)
-  final String? date;
+  final List<DataModel> data;
 
-  @HiveField(2)
+  @override
+  String toString() => 'Activity(date: $date, data: $data)';
+}
+
+@HiveType(typeId: 1)
+class DataModel extends HiveObject{
+  @HiveField(0)
+  final String? name;
+  @HiveField(1)
   final String? startTime;
-
-  @HiveField(3)
+  @HiveField(2)
   final String? finishTime;
-
-  @HiveField(4)
+  @HiveField(3)
   final String? category;
-  
+
   DataModel({
     this.name,
-    this.date,
     this.startTime,
     this.finishTime,
     this.category,
@@ -31,6 +38,6 @@ class DataModel extends HiveObject {
 
   @override
   String toString() {
-    return 'DataModel(name: $name, date: $date, startTime: $startTime, finishTime: $finishTime, category: $category)';
+    return 'DataModel(name: $name, startTime: $startTime, finishTime: $finishTime, category: $category)';
   }
 }

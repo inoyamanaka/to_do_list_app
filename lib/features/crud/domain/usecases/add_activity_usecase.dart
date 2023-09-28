@@ -11,7 +11,7 @@ class AddActivityUseCase extends UseCase<DataActivityEntity, DataActivityBody> {
   final ActivityRepository repository;
 
   @override
-  Future<Either<Failure, DataActivityEntity>> call(DataActivityBody body) {
-    return repository.addActivity(body);
+  Future<Either<Failure, DataActivityEntity>> call(DataActivityBody params) {
+    return repository.addActivity(params);
   }
 }

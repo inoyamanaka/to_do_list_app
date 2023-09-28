@@ -11,7 +11,7 @@ class RegisterUsecase extends UseCase<RegisterEntity, RegisterBody> {
   final RegisterRepository registerRepository;
 
   @override
-  Future<Either<Failure, RegisterEntity>> call(RegisterBody body) {
-    return registerRepository.register(body);
+  Future<Either<Failure, RegisterEntity>> call(RegisterBody params) {
+    return registerRepository.register(params);
   }
 }

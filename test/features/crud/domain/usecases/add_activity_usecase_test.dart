@@ -21,7 +21,7 @@ void main() {
   });
 
   group('Get activity use case', () {
-    final response = DataActivityEntity(
+    const response = DataActivityEntity(
       title: 'Makan siang',
       description: 'Makan di restoran',
       category: 'Makanan',
@@ -38,11 +38,11 @@ void main() {
     test('should return Activity Entity', () async {
       // arrange
       when(() => mockActivityRepository.addActivity(body))
-          .thenAnswer((invocation) async => Right(response));
+          .thenAnswer((invocation) async => const Right(response));
       // act
       final result = await addActivityUseCase.call(body);
       // assert
-      expect(result, Right(response));
+      expect(result, const Right(response));
     });
 
     test('should return failure when fail', () async {

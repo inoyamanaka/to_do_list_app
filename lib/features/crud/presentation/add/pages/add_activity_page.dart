@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/components/function.dart';
+import 'package:to_do_list_app/features/crud/presentation/add/widgets/button.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
 import 'package:to_do_list_app/features/crud/presentation/statistic/pages/statistic_page.dart';
@@ -32,7 +32,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
   TextEditingController finishInput = TextEditingController();
 
   int categoryOnGoing = 0;
-  final CrudController c = Get.find<CrudController>();
+  final CrudController activity = Get.find<CrudController>();
 
   Future<void> fetchData() async {
     await statistic.getStatistic();
@@ -207,34 +207,16 @@ class _AddActivityPageState extends State<AddActivityPage> {
                           ).toList(),
                         ),
                         SizedBox(height: 15.h),
-                        GestureDetector(
-                          onTap: () async {
-                            if (formKey.currentState!.validate()) {
-                              await updateStatisticActivity(context);
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                              color: Color(0xff302727),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  FontAwesomeIcons.circlePlus,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 10.w),
-                                Text(
-                                  'CREATE TASK',
-                                  style: MyTypography.bodyMedium,
-                                ),
-                              ],
-                            ),
-                          ),
+                        SubmitButton(
+                          formKey: formKey,
+                          activity: activity,
+                          optionSelected: optionSelected,
+                          categoryOnGoing: categoryOnGoing,
+                          nameInput: nameInput,
+                          dateInput: dateInput,
+                          startInput: startInput,
+                          finishInput: finishInput,
+                          selectedDate: selectedDate,
                         ),
                       ],
                     ),
@@ -245,35 +227,6 @@ class _AddActivityPageState extends State<AddActivityPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Future<void> updateStatisticActivity(BuildContext context) async {
-    if (c.statistic_result.isNotEmpty) {
-      categoryOnGoing = 0;
-
-      for (final dataModel in c.statistic_result[0]) {
-        if (dataModel.nameCategory == optionSelected) {
-          categoryOnGoing = dataModel.categoryOngoing!;
-          categoryOnGoing += 1;
-
-          break;
-        }
-      }
-    } else {
-      categoryOnGoing += 1;
-    }
-
-    await createDataModelAndScheduleNotification(
-      name: nameInput.text,
-      category: optionSelected,
-      date: dateInput.text,
-      startTime: startInput.text,
-      finishTime: finishInput.text,
-      selectedDate: selectedDate!,
-      onFinish: 0,
-      onGoing: categoryOnGoing,
-      context: context,
     );
   }
 }

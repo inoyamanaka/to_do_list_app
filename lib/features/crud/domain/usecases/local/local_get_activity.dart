@@ -7,7 +7,7 @@ class LocalGetActivityUseCase {
 
   final LocalActivityRepository repository;
 
-  Future<List<DataModel>> call(NoParams params) {
+  Future<List<Activity>> call(NoParams params) {
     return repository.getLocalActivity();
   }
 }

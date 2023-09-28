@@ -10,7 +10,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:to_do_list_app/app/app.dart';
 import 'package:to_do_list_app/bootstrap.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
-import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/infrastructure/constants/constant.dart';
 import 'package:to_do_list_app/infrastructure/env/flavor.dart';
 import 'package:to_do_list_app/infrastructure/utils/notification.dart';
@@ -30,8 +29,8 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   Hive
-    ..registerAdapter<DataModel>(DataModelAdapter())
-    ..registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
+      // ..registerAdapter<DataModel>(DataModelAdapter())
+      .registerAdapter<StatisticDataModel>(StatisticDataModelAdapter());
 
   await Hive.openBox(tokenBox);
   await Hive.openBox(databaseBox);
