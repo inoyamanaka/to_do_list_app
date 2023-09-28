@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:timelines/timelines.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
+import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/features/crud/presentation/schedule/widgets/date_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/schedule/widgets/timeline_event_card.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
@@ -12,6 +14,11 @@ import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 final CrudController activity = Get.find<CrudController>();
 int selectedIndex = 0;
 bool isEmptyList = true;
+List<Activity> dateActivity = [];
+
+// KALO GA KEPAKE HAPUS ?
+DateTime dateTimeIndex = DateTime(2023, 9, 28);
+String formattedDate = DateFormat('dd MMMM yyyy').format(dateTimeIndex);
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -24,8 +31,14 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   Widget build(BuildContext context) {
     try {
-      activity.result[0][selectedIndex].data.isEmpty;
-      isEmptyList = false;
+      dateActivity = activity.result[0].where((activity) {
+        return activity.date == formattedDate;
+      }).toList();
+      if (dateActivity.isEmpty) {
+        isEmptyList = true;
+      } else {
+        isEmptyList = false;
+      }
     } catch (e) {
       isEmptyList = true;
     }
@@ -44,7 +57,7 @@ class _SchedulePageState extends State<SchedulePage> {
       body: Column(
         children: [
           SizedBox(
-            height: 80.h,
+            height: 120.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 7,
@@ -54,13 +67,15 @@ class _SchedulePageState extends State<SchedulePage> {
                   delayStart: Duration(milliseconds: 80 * index),
                   child: DateCard(
                     index: index,
-                    // selectedIndex: selectedIndex,
+                    getDate: (thisDate) {
+                      setState(() {
+                        formattedDate = thisDate;
+                      });
+                    },
                     getIndex: (indexi) {
-                      // print()
                       setState(() {
                         selectedIndex = indexi;
                       });
-                      // selectedIndex = indexi;
                     },
                     selectedIndex: selectedIndex,
                   ),
@@ -126,14 +141,11 @@ class _SchedulePageState extends State<SchedulePage> {
                           child: ShowUpAnimation(
                             delayStart: Duration(milliseconds: 80 * index),
                             child: TimelineCard(
-                              category: activity.result[0][selectedIndex]
-                                  .data[index].category!,
-                              name: activity
-                                  .result[0][selectedIndex].data[index].name!,
-                              startTime: activity.result[0][selectedIndex]
-                                  .data[index].startTime!,
-                              finishTime: activity.result[0][selectedIndex]
-                                  .data[index].finishTime!,
+                              category: dateActivity[0].data[index].category!,
+                              name: dateActivity[0].data[index].name!,
+                              startTime: dateActivity[0].data[index].startTime!,
+                              finishTime:
+                                  dateActivity[0].data[index].finishTime!,
                               index: index,
                             ),
                           ),
@@ -146,14 +158,12 @@ class _SchedulePageState extends State<SchedulePage> {
                             ),
                             child: FittedBox(
                               child: Text(
-                                activity.result[0][selectedIndex].data[index]
-                                    .startTime!,
+                                dateActivity[0].data[index].startTime!,
                               ),
                             ),
                           ),
                         ),
-                        itemCount:
-                            activity.result[0][selectedIndex].data.length,
+                        itemCount: dateActivity[0].data.length,
                       ),
                     ),
             ),
