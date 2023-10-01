@@ -56,12 +56,12 @@ class ProjectCard extends StatelessWidget {
                             Text(
                               result.category ?? '',
                               style: MyTypography.bodySmallWhite
-                                  .copyWith(fontSize: 14),
+                                  .copyWith(fontSize: 12),
                             ),
                             Text(
                               result.name ?? '',
                               style: MyTypography.bodyMedium
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: 10),
                             ),
                             const SizedBox(
                               height: 10,
@@ -79,7 +79,7 @@ class ProjectCard extends StatelessWidget {
                                 Text(
                                   '${result.startTime}-${result.finishTime}',
                                   style: MyTypography.labelMedium
-                                      .copyWith(fontSize: 10),
+                                      .copyWith(fontSize: 12),
                                 ),
                                 SizedBox(
                                   width: 15.w,

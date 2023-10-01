@@ -21,8 +21,8 @@ class AddActivityPage extends StatefulWidget {
 
 class _AddActivityPageState extends State<AddActivityPage> {
   DateTime? selectedDate;
-  String optionSelected = '';
-  int? _value = 1;
+  String optionSelected = 'Olahraga';
+  int? _value = 0;
 
   final formKey = GlobalKey<FormState>();
   TextEditingController nameInput = TextEditingController();
@@ -73,23 +73,22 @@ class _AddActivityPageState extends State<AddActivityPage> {
               ),
             ];
           },
-          body: SingleChildScrollView(
-            child: Container(
-              width: screenSize.width,
-              height: screenSize.height,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(35.r),
-                  topLeft: Radius.circular(35.r),
-                ),
-                color: const Color(0xffF3F3F3),
+          body: Container(
+            width: screenSize.width,
+            // height: screenSize.height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(15.r),
+                topLeft: Radius.circular(15.r),
               ),
-              child: ShowUpAnimation(
-                child: Form(
-                  key: formKey,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+              color: const Color(0xffF3F3F3),
+            ),
+            child: ShowUpAnimation(
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -144,7 +143,6 @@ class _AddActivityPageState extends State<AddActivityPage> {
                                 DateFormat.Hm().format(result!);
                             setState(() {
                               startInput.text = formattedDate;
-                              selectedDate = result;
                             });
                           },
                           decoration: InputDecoration(

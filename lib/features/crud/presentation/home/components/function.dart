@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
+import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 void updateCategoryAndActivity(CrudController result, int index) {
   final onFinish = result.statisticResult[0][index].categoryFinished! + 1;
@@ -21,12 +22,13 @@ void updateCategoryAndActivity(CrudController result, int index) {
 void showConfirmationDialog(BuildContext context, VoidCallback onConfirm) {
   AwesomeDialog(
     context: context,
-    dialogType: DialogType.warning,
-    body: const Center(
+    body: Center(
       child: Text(
         'Apakah Aktivitas Sudah Selesai',
-        style: TextStyle(
-          fontStyle: FontStyle.italic,
+        style: MyTypography.bodySmall.copyWith(
+          color: Colors.black,
+          fontSize: 15,
+          fontWeight: FontWeight.normal,
         ),
       ),
     ),
@@ -34,7 +36,7 @@ void showConfirmationDialog(BuildContext context, VoidCallback onConfirm) {
     desc: 'This is also Ignored',
     btnCancelOnPress: () {},
     btnCancelText: 'Belum',
-    btnOkOnPress: onConfirm, 
+    btnOkOnPress: onConfirm,
     btnOkText: 'Sudah',
   ).show();
 }

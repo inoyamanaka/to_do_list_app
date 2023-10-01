@@ -16,6 +16,7 @@ class StatisticPage extends StatefulWidget {
 }
 
 final CrudController statistic = Get.find<CrudController>();
+ScrollController _scrollController = ScrollController();
 
 int totalComplete = 0;
 int totalOngGoing = 0;
@@ -60,6 +61,7 @@ class _StatisticPageState extends State<StatisticPage> {
             ),
           ),
           child: NestedScrollView(
+            // physics: const NeverScrollableScrollPhysics(),
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return [
@@ -81,7 +83,7 @@ class _StatisticPageState extends State<StatisticPage> {
             },
             body: SingleChildScrollView(
               child: Container(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                 width: screenSize.width,
                 height: screenSize.height,
                 decoration: BoxDecoration(
@@ -128,12 +130,14 @@ class _StatisticPageState extends State<StatisticPage> {
                       alignment: Alignment.topLeft,
                       child: Text('Statistic', style: MyTypography.bodySmall),
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 5.h),
                     SizedBox(
                       height: 220.h,
                       child: ListView.builder(
-                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        controller: _scrollController,
                         physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
                         itemCount: 6,
                         itemBuilder: (context, index) => progressBar(
                           percentBar[index],
@@ -143,7 +147,7 @@ class _StatisticPageState extends State<StatisticPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 5.h),
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text('Category', style: MyTypography.bodySmall),
@@ -151,7 +155,9 @@ class _StatisticPageState extends State<StatisticPage> {
                     SizedBox(height: 10.h),
                     Flexible(
                       child: ListView.builder(
+                        controller: _scrollController,
                         padding: EdgeInsets.zero,
+                        shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: 6,
                         itemBuilder: (context, index) => ShowUpAnimation(

@@ -18,18 +18,28 @@ class ProfileCard extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(35.r),
-              topLeft: Radius.circular(35.r),
+              topRight: Radius.circular(15.r),
+              topLeft: Radius.circular(15.r),
             ),
             color: const Color(0xffF3F3F3),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Profile',
-                style: MyTypography.bodySmall,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Personal Information',
+                    style: MyTypography.bodySmall,
+                  ),
+                  const Icon(
+                    FontAwesomeIcons.penClip,
+                    size: 20,
+                  ),
+                ],
               ),
+              const SizedBox(height: 15),
               Row(
                 children: [
                   const Icon(FontAwesomeIcons.userAstronaut),
@@ -117,7 +127,7 @@ class ProfileCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              Expanded(child: SizedBox(height: 10.h)),
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(

@@ -95,7 +95,7 @@ Column categoryColumn(int index, String category, int onGoing, int finish) {
             ),
           ),
           Text(
-            '$finish/$onGoing',
+            '$finish dari $onGoing',
             style: MyTypography.bodyTiny,
           ),
           Text(

@@ -1,12 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
-import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 part 'local_request.g.dart';
 
 @HiveType(typeId: 0)
 class Activity extends HiveObject {
-  Activity(this.date, this.data,);
+  Activity(
+    this.date,
+    this.data,
+  );
 
   @HiveField(0)
   final String date;
@@ -19,7 +21,7 @@ class Activity extends HiveObject {
 }
 
 @HiveType(typeId: 1)
-class DataModel extends HiveObject{
+class DataModel extends HiveObject {
   @HiveField(0)
   final String? name;
   @HiveField(1)

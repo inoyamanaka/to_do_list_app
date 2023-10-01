@@ -31,9 +31,15 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime selectedDateFinal;
+
     return GestureDetector(
       onTap: () async {
         if (formKey.currentState!.validate()) {
+          selectedDateFinal = parseAndFormatDate(
+            dateInput.text,
+            startInput.text,
+          );
           await updateStatisticActivity(
             context,
             activity,
@@ -43,7 +49,7 @@ class SubmitButton extends StatelessWidget {
             dateInput,
             startInput,
             finishInput,
-            selectedDate!,
+            selectedDateFinal,
           );
         }
       },

@@ -8,7 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:to_do_list_app/app/app.dart';
 import 'package:to_do_list_app/bootstrap.dart';
-import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/infrastructure/constants/constant.dart';
 import 'package:to_do_list_app/infrastructure/env/env_config.dart';
 import 'package:to_do_list_app/infrastructure/env/flavor.dart';

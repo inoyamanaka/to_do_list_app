@@ -1,6 +1,7 @@
 // ignore_for_file: strict_raw_type
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
@@ -59,14 +60,37 @@ class NotificationService {
     String? body,
     String? payLoad,
   }) async {
+    // Initialize timezone database
+    // final String timeZoneName = 'your_time_zone'; // Ganti dengan zona waktu Anda
+    // The device's timezone.
+
+    tz.initializeTimeZones();
+    final timeZoneName = tz.local.name;
+    final scheduledTime = tz.TZDateTime.from(
+      scheduledNotificationDateTime,
+      tz.getLocation(timeZoneName),
+    );
+    final now = tz.TZDateTime.now(tz.getLocation(timeZoneName));
+
+    print(scheduledNotificationDateTime);
+    // print(scheduledTime.isBefore(now));
+    print(scheduledTime.isAfter(now));
+
+    // if (scheduledTime.isBefore(now) || scheduledTime.isAtSameMomentAs(now)) {
+    //   scheduledTime = scheduledTime.add(const Duration(days: 1));
+    // } else if (scheduledTime.isAfter(now)) {
+    //   print('cell');
+    // }
+
+    if (scheduledTime.isBefore(now) == true) {
+      print('cell');
+      throw Exception('Waktu yang dijadwalkan sudah berlalu');
+    }
     return notificationsPlugin.zonedSchedule(
       id,
       title,
       body,
-      tz.TZDateTime.from(
-        scheduledNotificationDateTime,
-        tz.local,
-      ),
+      scheduledTime,
       notificationDetails(),
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,

@@ -54,13 +54,14 @@ class TimelineCard extends StatelessWidget {
               const Icon(
                 FontAwesomeIcons.clock,
                 color: Colors.white,
+                size: 15,
               ),
               const SizedBox(
                 width: 10,
               ),
               Text(
                 '$startTime - $finishTime',
-                style: MyTypography.bodyTinyWhite,
+                style: MyTypography.bodyTinyWhite.copyWith(fontSize: 12),
               ),
             ],
           ),

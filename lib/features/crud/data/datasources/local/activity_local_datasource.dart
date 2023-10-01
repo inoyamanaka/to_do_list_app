@@ -58,7 +58,6 @@ class ActivityLocalDataSourceImpl implements ActivityLocalDataSource {
     // Mengurutkan dataList berdasarkan startTime
     await box.clear();
     await box.addAll(dataList);
-    print(dataList[1]);
   }
 
   @override

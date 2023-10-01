@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
-List<String> days = ['Mon', 'Thu', 'Wed', 'Tue', 'Fri', 'Sat', 'Sun'];
-List<int> daysMath = [-6, -5, -4, -3, -2, -1, 0];
 DateTime today = DateTime.now();
 List<String> next7Days = List.generate(7, (index) {
   final nextDate = today.add(Duration(days: index));

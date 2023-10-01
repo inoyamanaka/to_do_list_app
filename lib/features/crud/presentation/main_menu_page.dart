@@ -70,7 +70,17 @@ class _MyMenuPageState extends State<MyMenuPage>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // Warna shadow
+              spreadRadius: 5, // Seberapa luas shadow menyebar
+              blurRadius: 5, // Seberapa buram shadow
+              offset:
+                  const Offset(0, 3), // Perpindahan shadow dalam sumbu x dan y
+            ),
+          ],
+        ),
         child: BottomBarFloating(
           items: items,
           backgroundColor: Colors.white,
@@ -87,6 +97,7 @@ class _MyMenuPageState extends State<MyMenuPage>
         ),
       ),
       body: SafeArea(
+        top: false,
         child: Navigator(
           key: _navKey,
           onGenerateRoute: (_) => SwipeablePageRoute(
