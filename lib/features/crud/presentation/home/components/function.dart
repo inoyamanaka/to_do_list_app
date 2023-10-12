@@ -5,6 +5,7 @@ import 'package:to_do_list_app/features/crud/data/models/request/local/local_dat
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 void updateCategoryAndActivity(CrudController result, int index) {
+
   final onFinish = result.statisticResult[0][index].categoryFinished! + 1;
   final onGoing = result.statisticResult[0][index].categoryOngoing! + 1;
   final category = result.statisticResult[0][index].nameCategory!;
@@ -25,6 +26,7 @@ void showConfirmationDialog(BuildContext context, VoidCallback onConfirm) {
     body: Center(
       child: Text(
         'Apakah Aktivitas Sudah Selesai',
+        textAlign: TextAlign.center,
         style: MyTypography.bodySmall.copyWith(
           color: Colors.black,
           fontSize: 15,

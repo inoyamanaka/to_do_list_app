@@ -14,6 +14,7 @@ import 'package:to_do_list_app/features/crud/data/models/request/local/local_req
 import 'package:to_do_list_app/features/crud/presentation/home/components/function.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/project_today_card.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/widgets/show_all_today.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +25,9 @@ class HomePage extends StatefulWidget {
 }
 
 final CrudController result = Get.find<CrudController>();
-bool isEmptyList = true;
+ValueNotifier<bool> isEmptyList = ValueNotifier<bool>(true);
+
+// bool isEmptyList = true;
 List<Activity> dateActivity = [];
 
 // KALO GA KEPAKE HAPUS ?
@@ -53,8 +56,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController()..addListener(_scrollListener);
     result.getActivity();
+    _scrollController = ScrollController()..addListener(_scrollListener);
   }
 
   @override
@@ -63,27 +66,39 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  Future<void> fetchDataAndUpdateList(String formattedDate) async {
+    try {
+      // print(result.result);
+
+      dateActivity = result.result[0].where((activity) {
+        return activity.date == formattedDate;
+      }).toList();
+      if (dateActivity.isEmpty) {
+        setState(() {
+          isEmptyList.value = true;
+        });
+      } else {
+        setState(() {
+          isEmptyList.value = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        isEmptyList.value = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final presentTime = DateTime.now();
     final dayName = DateFormat('EEEE').format(presentTime);
     final day = presentTime.day;
 
-// Mengonversi nilai bulan menjadi nama bulan
     final monthName = DateFormat('MMMM').format(presentTime);
     final year = presentTime.year;
-    try {
-      dateActivity = result.result[0].where((activity) {
-        return activity.date == formattedDate;
-      }).toList();
-      if (dateActivity.isEmpty) {
-        isEmptyList = true;
-      } else {
-        isEmptyList = false;
-      }
-    } catch (e) {
-      isEmptyList = true;
-    }
+
+    fetchDataAndUpdateList(formattedDate);
     final screenSize = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => SafeArea(
@@ -248,62 +263,78 @@ class _HomePageState extends State<HomePage> {
                               'My Projects',
                               style: MyTypography.bodySmall,
                             ),
-                            AutoSizeText(
-                              'Show all',
-                              style: MyTypography.bodySmall,
+                            TextButton(
+                              onPressed: () {
+                                Get.to<void>(ShowTodayProject.new);
+                              },
+                              child: Text(
+                                'Show all',
+                                style: MyTypography.bodySmall,
+                              ),
                             ),
                           ],
                         ),
                       ),
                       ShowUpAnimation(
                         delayStart: const Duration(milliseconds: 200),
-                        child: SizedBox(
-                          height: dateActivity.isNotEmpty ? 3 * 150 : 200,
-                          child: isEmptyList
-                              ? Container(
-                                  child: Lottie.asset(
-                                    'assets/lotties/sleep_cat.json',
-                                  ),
-                                )
-                              : ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  padding: EdgeInsets.zero,
-                                  itemCount: dateActivity[0].data.length >= 3
-                                      ? 3
-                                      : dateActivity[0].data.length,
-                                  itemBuilder: (context, index) => Slidable(
-                                    key: UniqueKey(),
-                                    startActionPane: ActionPane(
-                                      motion: const ScrollMotion(),
-                                      dismissible: DismissiblePane(
-                                        onDismissed: () {
-                                          updateCategoryAndActivity(
-                                            result,
-                                            index,
-                                          );
-                                        },
-                                      ),
-                                      children: [
-                                        SlidableAction(
-                                          onPressed: (context) {},
-                                          backgroundColor:
-                                              const Color(0xFFFE4A49),
-                                          foregroundColor: Colors.white,
-                                          icon: Icons.delete,
-                                          label: 'Delete',
+                        child: ValueListenableBuilder(
+                          valueListenable: isEmptyList,
+                          builder: (context, value, child) => SizedBox(
+                            height: dateActivity.isNotEmpty ? 3 * 150 : 200,
+                            child: value
+                                ? Container(
+                                    child: Lottie.asset(
+                                      'assets/lotties/sleep_cat.json',
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    itemCount: dateActivity[0].data.length >= 3
+                                        ? 3
+                                        : dateActivity[0].data.length,
+                                    itemBuilder: (context, index) => Slidable(
+                                      key: UniqueKey(),
+                                      startActionPane: ActionPane(
+                                        motion: const ScrollMotion(),
+                                        dismissible: DismissiblePane(
+                                          onDismissed: () {
+                                            updateCategoryAndActivity(
+                                              result,
+                                              index,
+                                            );
+                                          },
                                         ),
-                                      ],
-                                    ),
-                                    child: ProjectCard(
-                                      index: index,
-                                      onComplete: () {
-                                        showConfirmationDialog(context, () {});
-                                      },
-                                      result: dateActivity[0].data[index],
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (context) {},
+                                            backgroundColor:
+                                                const Color(0xFFFE4A49),
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.delete,
+                                            label: 'Delete',
+                                          ),
+                                        ],
+                                      ),
+                                      child: ProjectCard(
+                                        index: index,
+                                        onComplete: () {
+                                          setState(() {
+                                            showConfirmationDialog(context, () {
+                                              updateCategoryAndActivity(
+                                                result,
+                                                index,
+                                              );
+                                            });
+                                          });
+                                        },
+                                        result: dateActivity[0].data[index],
+                                      ),
                                     ),
                                   ),
-                                ),
+                          ),
                         ),
                       ),
                     ],

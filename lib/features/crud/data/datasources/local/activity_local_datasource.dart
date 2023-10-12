@@ -62,6 +62,16 @@ class ActivityLocalDataSourceImpl implements ActivityLocalDataSource {
 
   @override
   Future<void> deleteLocalActivity(int index) async {
+    final activity = await box.getAt(index);
+    if (activity != null) {
+      (activity['data'] as List).removeWhere(
+        (data) =>
+            data['name'] == 'dwada' &&
+            data['startTime'] == '01:38' &&
+            data['finishTime'] == '03:34' &&
+            data['category'] == 'category',
+      );
+    }
     await box.deleteAt(index);
   }
 }

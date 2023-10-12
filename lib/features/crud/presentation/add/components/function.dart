@@ -10,7 +10,7 @@ import 'package:to_do_list_app/features/crud/presentation/home/pages/home_page.d
 import 'package:to_do_list_app/infrastructure/utils/notification.dart';
 
 bool isLater(String time1, String time2) {
-  final format = DateFormat('HH:mm:ss.SSS');
+  final format = DateFormat('HH:mm');
 
   // Konversi string waktu ke objek DateTime
   final dateTime1 = format.parse(time1);
@@ -41,8 +41,6 @@ Future<void> createDataModelAndScheduleNotification({
   final activityModel = Activity(date, [dataModel]);
   final statisticModel = StatisticDataModel(category, onFinish, onGoing);
 
-  await result.addActivity(activityModel);
-
   if (result.statisticResult.isEmpty) {
   } else {
     await result.updateStatistic(category, statisticModel);
@@ -51,6 +49,7 @@ Future<void> createDataModelAndScheduleNotification({
 
   // Penjadwalan notifikasi
   try {
+
     final result = isLater(startTime, finishTime);
 
     if (result) {
@@ -63,6 +62,7 @@ Future<void> createDataModelAndScheduleNotification({
       );
     }
   } catch (e) {
+
     if (context.mounted) {
       return DialogueBox.show(
         context: context,
@@ -73,6 +73,7 @@ Future<void> createDataModelAndScheduleNotification({
       );
     }
   }
+  await result.addActivity(activityModel);
 
   Get.showSnackbar(
     const GetSnackBar(

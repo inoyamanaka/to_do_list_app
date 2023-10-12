@@ -31,7 +31,6 @@ class CrudController extends GetxController
   RxBool valuesLoading = false.obs;
 
   Future<void> getActivity() async {
-    change(null, status: RxStatus.loading());
     final response = await localGetActivityUseCase.call(NoParams());
     result.assign(response);
   }

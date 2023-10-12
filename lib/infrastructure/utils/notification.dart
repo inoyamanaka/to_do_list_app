@@ -83,7 +83,6 @@ class NotificationService {
     // }
 
     if (scheduledTime.isBefore(now) == true) {
-      print('cell');
       throw Exception('Waktu yang dijadwalkan sudah berlalu');
     }
     return notificationsPlugin.zonedSchedule(

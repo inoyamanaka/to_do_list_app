@@ -16,7 +16,6 @@ int selectedIndex = 0;
 bool isEmptyList = true;
 List<Activity> dateActivity = [];
 
-// KALO GA KEPAKE HAPUS ?
 DateTime dateTimeIndex = DateTime.now();
 String formattedDate = DateFormat('dd MMMM yyyy').format(dateTimeIndex);
 
@@ -162,15 +161,20 @@ class _SchedulePageState extends State<SchedulePage> {
             children: [
               Expanded(
                 child: ShowUpAnimation(
-                  child: Container(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15.r),
-                        topLeft: Radius.circular(15.r),
-                      ),
-                      color: const Color(0xffF3F3F3),
-                    ),
+                    decoration: _isShrink
+                        ? const BoxDecoration(
+                            color: Color(0xffF3F3F3),
+                          )
+                        : BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(15.r),
+                              topLeft: Radius.circular(15.r),
+                            ),
+                            color: const Color(0xffF3F3F3),
+                          ),
                     child: isEmptyList
                         ? Padding(
                             padding: const EdgeInsets.all(25),
