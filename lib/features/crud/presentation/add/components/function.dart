@@ -34,6 +34,7 @@ Future<void> createDataModelAndScheduleNotification({
   // Membuat objek DataModel
   final dataModel = DataModel(
     name: name,
+    id: DateTime.now().microsecondsSinceEpoch.toString(),
     category: category,
     startTime: startTime,
     finishTime: finishTime,
@@ -49,7 +50,6 @@ Future<void> createDataModelAndScheduleNotification({
 
   // Penjadwalan notifikasi
   try {
-
     final result = isLater(startTime, finishTime);
 
     if (result) {
@@ -62,7 +62,6 @@ Future<void> createDataModelAndScheduleNotification({
       );
     }
   } catch (e) {
-
     if (context.mounted) {
       return DialogueBox.show(
         context: context,

@@ -4,8 +4,7 @@ import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
-void updateCategoryAndActivity(CrudController result, int index) {
-
+void updateCategoryAndActivity(CrudController result, int index, String id) {
   final onFinish = result.statisticResult[0][index].categoryFinished! + 1;
   final onGoing = result.statisticResult[0][index].categoryOngoing! + 1;
   final category = result.statisticResult[0][index].nameCategory!;
@@ -16,7 +15,7 @@ void updateCategoryAndActivity(CrudController result, int index) {
   );
   result
     ..updateStatistic(category, statisticModel)
-    ..deleteActivity(index)
+    ..deleteActivity(index, id)
     ..getActivity();
 }
 

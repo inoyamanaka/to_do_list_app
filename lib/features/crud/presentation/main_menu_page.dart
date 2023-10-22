@@ -73,11 +73,10 @@ class _MyMenuPageState extends State<MyMenuPage>
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5), 
-              spreadRadius: 5, 
-              blurRadius: 5, 
-              offset:
-                  const Offset(0, 3),
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -112,9 +111,9 @@ class _MyMenuPageState extends State<MyMenuPage>
               opacity: animation,
               child: child,
             ),
-            canOnlySwipeFromEdge: true,
             builder: (_) => TabBarView(
               controller: _tabController,
+              physics: const NeverScrollableScrollPhysics(),
               children: page,
             ),
           ),

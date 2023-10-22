@@ -8,7 +8,7 @@ abstract class ActivityLocalDataSource {
   // Future<Iterable<DataModel>> addLocalActivity();
   Future<List<Activity>> getLocalActivity();
   Future<void> addLocalActivity(Activity body);
-  Future<void> deleteLocalActivity(int index);
+  Future<void> deleteLocalActivity(int index, String id);
 }
 
 class ActivityLocalDataSourceImpl implements ActivityLocalDataSource {
@@ -21,8 +21,6 @@ class ActivityLocalDataSourceImpl implements ActivityLocalDataSource {
       if (!activityMap.containsKey(activity.date)) {
         activityMap[activity.date] = Activity(activity.date, []);
       }
-
-      // Gabungkan data dengan tanggal yang sama
       activityMap[activity.date]!.data.addAll(activity.data);
     }
     return activityMap.values.toList();
@@ -61,17 +59,16 @@ class ActivityLocalDataSourceImpl implements ActivityLocalDataSource {
   }
 
   @override
-  Future<void> deleteLocalActivity(int index) async {
-    final activity = await box.getAt(index);
-    if (activity != null) {
-      (activity['data'] as List).removeWhere(
-        (data) =>
-            data['name'] == 'dwada' &&
-            data['startTime'] == '01:38' &&
-            data['finishTime'] == '03:34' &&
-            data['category'] == 'category',
-      );
+  Future<void> deleteLocalActivity(int index, String id) async {
+    // Mendapatkan objek Activity dari Hive box menggunakan kunci lama
+    final allActivities = box.values.toList();
+    for (final activity in allActivities) {
+      if (activity.data[index].id == id) {
+        activity.data.removeAt(index);
+        await box.deleteAt(0);
+        await box.put(activity.date.toString(), activity);
+        break;
+      }
     }
-    await box.deleteAt(index);
   }
 }

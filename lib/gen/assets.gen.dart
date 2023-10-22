@@ -32,6 +32,9 @@ class $AssetsImagesGen {
   AssetGenImage get pekerjaan =>
       const AssetGenImage('assets/images/Pekerjaan.png');
 
+  /// File path: assets/images/avatar.png
+  AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
+
   /// File path: assets/images/decoration.png
   AssetGenImage get decoration =>
       const AssetGenImage('assets/images/decoration.png');
@@ -48,6 +51,7 @@ class $AssetsImagesGen {
         ibadah,
         olahraga,
         pekerjaan,
+        avatar,
         decoration,
         icLauncher
       ];

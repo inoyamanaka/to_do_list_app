@@ -25,21 +25,26 @@ class DataModel extends HiveObject {
   @HiveField(0)
   final String? name;
   @HiveField(1)
-  final String? startTime;
+  final String? id;
   @HiveField(2)
-  final String? finishTime;
+  final String? startTime;
   @HiveField(3)
+  final String? finishTime;
+  @HiveField(4)
   final String? category;
 
   DataModel({
     this.name,
+    this.id,
     this.startTime,
     this.finishTime,
     this.category,
   });
 
+ 
+
   @override
   String toString() {
-    return 'DataModel(name: $name, startTime: $startTime, finishTime: $finishTime, category: $category)';
+    return 'DataModel(name: $name, id: $id, startTime: $startTime, finishTime: $finishTime, category: $category)';
   }
 }

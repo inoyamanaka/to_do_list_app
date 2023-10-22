@@ -16,6 +16,7 @@ class SubmitButton extends StatelessWidget {
     required this.startInput,
     required this.finishInput,
     required this.selectedDate,
+    required this.title,
     super.key,
   });
 
@@ -27,6 +28,7 @@ class SubmitButton extends StatelessWidget {
   final TextEditingController dateInput;
   final TextEditingController startInput;
   final TextEditingController finishInput;
+  final String title;
   final DateTime? selectedDate;
 
   @override
@@ -68,7 +70,7 @@ class SubmitButton extends StatelessWidget {
             ),
             SizedBox(width: 10.w),
             Text(
-              'CREATE TASK',
+              title,
               style: MyTypography.bodyMedium,
             ),
           ],

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:show_up_animation/show_up_animation.dart';
+import 'package:to_do_list_app/infrastructure/navigation/routes.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -33,9 +35,14 @@ class ProfileCard extends StatelessWidget {
                     'Personal Information',
                     style: MyTypography.bodySmall,
                   ),
-                  const Icon(
-                    FontAwesomeIcons.penClip,
-                    size: 20,
+                  IconButton(
+                    onPressed: () {
+                      Get.toNamed<void>(Routes.profileUpdate);
+                    },
+                    icon: const Icon(
+                      FontAwesomeIcons.penClip,
+                      size: 20,
+                    ),
                   ),
                 ],
               ),

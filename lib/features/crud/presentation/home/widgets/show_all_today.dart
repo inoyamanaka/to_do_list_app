@@ -50,6 +50,7 @@ class ShowTodayProject extends StatelessWidget {
                                 updateCategoryAndActivity(
                                   result,
                                   index,
+                                  dateActivity[0].data[index].id!,
                                 );
                               },
                             ),
@@ -70,6 +71,7 @@ class ShowTodayProject extends StatelessWidget {
                                 updateCategoryAndActivity(
                                   result,
                                   index,
+                                  dateActivity[0].data[index].id!,
                                 );
                               });
                             },

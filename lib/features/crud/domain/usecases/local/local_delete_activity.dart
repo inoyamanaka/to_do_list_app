@@ -5,7 +5,7 @@ class LocalDeleteActivityUseCase {
 
   final LocalActivityRepository repository;
 
-  Future<void> call(int index) {
-    return repository.deleteLocalActivity(index);
+  Future<void> call(int index, String id) {
+    return repository.deleteLocalActivity(index, id);
   }
 }

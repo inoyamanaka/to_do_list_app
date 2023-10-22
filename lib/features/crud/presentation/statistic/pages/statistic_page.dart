@@ -82,96 +82,98 @@ class _StatisticPageState extends State<StatisticPage> {
               ];
             },
             body: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                width: screenSize.width,
-                height: screenSize.height,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(35.r),
-                    topLeft: Radius.circular(35.r),
+              child: ShowUpAnimation(
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                  width: screenSize.width,
+                  height: screenSize.height,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(35.r),
+                      topLeft: Radius.circular(35.r),
+                    ),
+                    color: const Color(0xffF3F3F3),
                   ),
-                  color: const Color(0xffF3F3F3),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              '$totalComplete/$totalOngGoing',
-                              style: MyTypography.bodySmall,
-                            ),
-                            Text(
-                              'Task Completed',
-                              style: MyTypography.bodySmall,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              '$totalPercent%',
-                              style: MyTypography.bodySmall,
-                            ),
-                            Text(
-                              'Completion Rate',
-                              style: MyTypography.bodySmall,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text('Statistic', style: MyTypography.bodySmall),
-                    ),
-                    SizedBox(height: 5.h),
-                    SizedBox(
-                      height: 220.h,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        controller: _scrollController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: EdgeInsets.zero,
-                        itemCount: 6,
-                        itemBuilder: (context, index) => progressBar(
-                          percentBar[index],
-                          index,
-                          result[0][index].categoryOngoing!,
-                          result[0][index].categoryFinished!,
-                        ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                '$totalComplete/$totalOngGoing',
+                                style: MyTypography.bodySmall,
+                              ),
+                              Text(
+                                'Task Completed',
+                                style: MyTypography.bodySmall,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                '$totalPercent%',
+                                style: MyTypography.bodySmall,
+                              ),
+                              Text(
+                                'Completion Rate',
+                                style: MyTypography.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 5.h),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text('Category', style: MyTypography.bodySmall),
-                    ),
-                    SizedBox(height: 10.h),
-                    Flexible(
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 6,
-                        itemBuilder: (context, index) => ShowUpAnimation(
-                          delayStart: Duration(milliseconds: 50 * index),
-                          child: categoryColumn(
+                      SizedBox(height: 10.h),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text('Statistic', style: MyTypography.bodySmall),
+                      ),
+                      SizedBox(height: 5.h),
+                      SizedBox(
+                        height: 220.h,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          controller: _scrollController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemCount: 6,
+                          itemBuilder: (context, index) => progressBar(
+                            percentBar[index],
                             index,
-                            result[0][index].nameCategory!,
                             result[0][index].categoryOngoing!,
                             result[0][index].categoryFinished!,
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 5.h),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text('Category', style: MyTypography.bodySmall),
+                      ),
+                      SizedBox(height: 10.h),
+                      Flexible(
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 6,
+                          itemBuilder: (context, index) => ShowUpAnimation(
+                            delayStart: Duration(milliseconds: 50 * index),
+                            child: categoryColumn(
+                              index,
+                              result[0][index].nameCategory!,
+                              result[0][index].categoryOngoing!,
+                              result[0][index].categoryFinished!,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

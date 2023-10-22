@@ -7,6 +7,7 @@ import 'package:to_do_list_app/features/auth/presentation/login/pages/login_page
 import 'package:to_do_list_app/features/auth/presentation/register/pages/register_page.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_bindings.dart';
 import 'package:to_do_list_app/features/crud/presentation/main_menu_page.dart';
+import 'package:to_do_list_app/features/crud/presentation/profile/pages/profile_update_page.dart';
 import 'package:to_do_list_app/infrastructure/navigation/routes.dart';
 
 class Nav {
@@ -39,6 +40,14 @@ class Nav {
     GetPage(
       name: Routes.home,
       page: () => const MyMenuPage(),
+      binding: CrudBinding(),
+      transition: Transition.cupertino,
+    ),
+
+     // PROFILE
+    GetPage(
+      name: Routes.profileUpdate,
+      page: () => const ProfileUpdatePage(),
       binding: CrudBinding(),
       transition: Transition.cupertino,
     ),

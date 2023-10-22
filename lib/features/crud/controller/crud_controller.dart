@@ -36,12 +36,11 @@ class CrudController extends GetxController
   }
 
   Future<void> addActivity(Activity body) async {
-    // print(body);
     await localAddActivityUseCase.call(body);
   }
 
-  Future<void> deleteActivity(int index) async {
-    await localDeleteActivityUseCase.call(index);
+  Future<void> deleteActivity(int index, String id) async {
+    await localDeleteActivityUseCase.call(index, id);
   }
 
   Future<void> getStatistic() async {

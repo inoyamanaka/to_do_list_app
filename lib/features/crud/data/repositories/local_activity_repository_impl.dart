@@ -14,12 +14,11 @@ class LocalActivityRepositoryImpl implements LocalActivityRepository {
 
   @override
   Future<void> addLocalActivity(Activity body) async {
-    // print(body);
     await dataSource.addLocalActivity(body);
   }
 
   @override
-  Future<void> deleteLocalActivity(int index) async {
-    await dataSource.deleteLocalActivity(index);
+  Future<void> deleteLocalActivity(int index, String id) async {
+    await dataSource.deleteLocalActivity(index, id);
   }
 }

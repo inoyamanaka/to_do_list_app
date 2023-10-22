@@ -175,7 +175,7 @@ class _SchedulePageState extends State<SchedulePage> {
                             ),
                             color: const Color(0xffF3F3F3),
                           ),
-                    child: isEmptyList
+                    child: isEmptyList || dateActivity[0].data.isEmpty
                         ? Padding(
                             padding: const EdgeInsets.all(25),
                             child:
