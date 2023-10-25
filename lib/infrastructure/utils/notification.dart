@@ -10,7 +10,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     const initializationSettingsAndroid =
-        AndroidInitializationSettings('flutter_logo');
+        AndroidInitializationSettings('ic_launcher');
 
     final initializationSettingsIOS = DarwinInitializationSettings(
       onDidReceiveLocalNotification:
@@ -70,17 +70,9 @@ class NotificationService {
       scheduledNotificationDateTime,
       tz.getLocation(timeZoneName),
     );
+
+    // const AndroidInitializationSettings('ic_launcher');
     final now = tz.TZDateTime.now(tz.getLocation(timeZoneName));
-
-    print(scheduledNotificationDateTime);
-    // print(scheduledTime.isBefore(now));
-    print(scheduledTime.isAfter(now));
-
-    // if (scheduledTime.isBefore(now) || scheduledTime.isAtSameMomentAs(now)) {
-    //   scheduledTime = scheduledTime.add(const Duration(days: 1));
-    // } else if (scheduledTime.isAfter(now)) {
-    //   print('cell');
-    // }
 
     if (scheduledTime.isBefore(now) == true) {
       throw Exception('Waktu yang dijadwalkan sudah berlalu');
@@ -90,6 +82,7 @@ class NotificationService {
       title,
       body,
       scheduledTime,
+      
       notificationDetails(),
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,

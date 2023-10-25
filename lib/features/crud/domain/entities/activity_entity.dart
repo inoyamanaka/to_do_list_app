@@ -3,21 +3,7 @@
 
 import 'package:equatable/equatable.dart';
 
-class UserActivityEntity extends Equatable {
-  const UserActivityEntity({
-    required this.email,
-    required this.id,
-    required this.isActive,
-    required this.items,
-  });
-  final String email;
-  final int id;
-  final bool isActive;
-  final List<DataActivityEntity> items;
 
-  @override
-  List<Object?> get props => [email, id, isActive, items];
-}
 
 class DataActivityEntity extends Equatable {
   const DataActivityEntity({

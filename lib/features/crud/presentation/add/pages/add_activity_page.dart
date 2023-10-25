@@ -9,6 +9,7 @@ import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/activity_tab_form.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/project_tab_form.dart';
 import 'package:to_do_list_app/features/crud/presentation/statistic/pages/statistic_page.dart';
+import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class AddActivityPage extends StatefulWidget {
   const AddActivityPage({super.key});
@@ -22,12 +23,20 @@ class _AddActivityPageState extends State<AddActivityPage> {
   ValueNotifier<String> optionSelected = ValueNotifier<String>('Olahraga');
   ValueNotifier<int> categoryIndex = ValueNotifier<int>(0);
 
-  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> activityKey = GlobalKey<FormState>();
+  GlobalKey<FormState> projectKey = GlobalKey<FormState>();
+
   TextEditingController nameInput = TextEditingController();
-  TextEditingController descInput = TextEditingController();
   TextEditingController dateInput = TextEditingController();
   TextEditingController startInput = TextEditingController();
   TextEditingController finishInput = TextEditingController();
+
+  TextEditingController projectNameInput = TextEditingController();
+  TextEditingController projectDescInput = TextEditingController();
+  // TextEditingController projectDateInput = TextEditingController();
+  // TextEditingController projectNameDataInput = TextEditingController();
+  // TextEditingController projectStartInput = TextEditingController();
+  // TextEditingController projectFinishInput = TextEditingController();
 
   int categoryOnGoing = 0;
   final CrudController activity = Get.find<CrudController>();
@@ -53,22 +62,23 @@ class _AddActivityPageState extends State<AddActivityPage> {
           ),
         ),
         child: NestedScrollView(
-          physics: const NeverScrollableScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                toolbarHeight: 80,
-                elevation: 0,
-                centerTitle: true,
+                elevation: innerBoxIsScrolled ? 3 : 0,
+                pinned: true,
+                backgroundColor:
+                    innerBoxIsScrolled ? Colors.white : Colors.transparent,
                 titleSpacing: 10,
-                flexibleSpace: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xff2b5876), Color(0xff4e4376)],
-                    ),
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(
+                    'Create New Activity',
+                    style: innerBoxIsScrolled
+                        ? MyTypography.bodySmall
+                        : MyTypography.bodySmall.copyWith(color: Colors.white),
                   ),
                 ),
-                title: const Text('''Create New Activity'''),
               ),
             ];
           },
@@ -94,6 +104,14 @@ class _AddActivityPageState extends State<AddActivityPage> {
                   height: 65,
                   unselectedLabelColor: Color(0xff363D45),
                 ),
+                onChange: (p0) {
+                  nameInput.clear();
+                  dateInput.clear();
+                  startInput.clear();
+                  finishInput.clear();
+                  projectNameInput.clear();
+                  projectDescInput.clear();
+                },
                 tabs: [
                   Text(
                     'ACTIVITY',
@@ -112,7 +130,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
                 ],
                 views: [
                   ActivityTabForm(
-                    formKey: formKey,
+                    formKey: activityKey,
                     nameInput: nameInput,
                     dateInput: dateInput,
                     startInput: startInput,
@@ -124,16 +142,19 @@ class _AddActivityPageState extends State<AddActivityPage> {
                     selectedDate: selectedDate,
                   ),
                   ProjectTabForm(
-                    formKey: formKey,
+                    formKey: projectKey,
                     nameInput: nameInput,
                     dateInput: dateInput,
                     startInput: startInput,
+                    projectDes: projectDescInput,
                     finishInput: finishInput,
                     optionSelected: optionSelected,
                     categoryIndex: categoryIndex,
                     activity: activity,
                     categoryOnGoing: categoryOnGoing,
                     selectedDate: selectedDate,
+                    projectName: projectNameInput,
+                    projectDate: projectDescInput,
                   ),
                 ],
               ),

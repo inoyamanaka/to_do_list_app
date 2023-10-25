@@ -1,21 +1,30 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:to_do_list_app/features/crud/data/models/request/local/local_project_request.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/pages/my_project_page.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class MyProjectCard extends StatelessWidget {
   const MyProjectCard({
+    required this.projectActivity,
+    required this.index,
     super.key,
   });
+
+  final List<ProjectActivity> projectActivity;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to<void>(MyProjectPage.new);
+        Get.to<void>(
+          () => MyProjectPage(
+            projectActivity: projectActivity[index],
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -30,37 +39,33 @@ class MyProjectCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_month,
                         color: Color(0xff33363F),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      AutoSizeText(
-                        '12 Dec',
-                      ),
+                      const SizedBox(width: 10),
+                      Text(projectActivity[index].projectDate),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     FontAwesomeIcons.lightbulb,
                     color: Color(0xff33363F),
                   ),
                 ],
               ),
               SizedBox(height: 10.h),
-              AutoSizeText(
-                'Belajar Hacking',
+              Text(
+                projectActivity[index].projectName,
                 style: MyTypography.bodyLarge,
               ),
               SizedBox(height: 10.h),
-              AutoSizeText(
-                '''Lorem ipsum dolor si jamet dan kawan-kawan sedang berjalan .....''',
+              Text(
+                projectActivity[index].projectDescription,
                 style: MyTypography.bodyTiny,
               ),
               const SizedBox(height: 20),

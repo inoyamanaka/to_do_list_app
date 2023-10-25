@@ -8,7 +8,7 @@ part of 'local_request.dart';
 
 class ActivityAdapter extends TypeAdapter<Activity> {
   @override
-  final int typeId = 0;
+  final int typeId = 4;
 
   @override
   Activity read(BinaryReader reader) {
@@ -45,7 +45,7 @@ class ActivityAdapter extends TypeAdapter<Activity> {
 
 class DataModelAdapter extends TypeAdapter<DataModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 5;
 
   @override
   DataModel read(BinaryReader reader) {

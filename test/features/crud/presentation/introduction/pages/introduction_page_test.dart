@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:to_do_list_app/features/auth/presentation/introduction/pages/intorduction_page.dart';
+import 'package:to_do_list_app/features/auth/presentation/pages/intorduction_page.dart';
 // Gantilah 'your_app_name' dengan nama paket aplikasi Anda
 
 void main() {

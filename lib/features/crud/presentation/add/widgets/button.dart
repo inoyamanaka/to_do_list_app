@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
-import 'package:to_do_list_app/features/crud/presentation/add/components/function.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class SubmitButton extends StatelessWidget {
@@ -17,6 +16,7 @@ class SubmitButton extends StatelessWidget {
     required this.finishInput,
     required this.selectedDate,
     required this.title,
+    required this.onTap,
     super.key,
   });
 
@@ -30,31 +30,13 @@ class SubmitButton extends StatelessWidget {
   final TextEditingController finishInput;
   final String title;
   final DateTime? selectedDate;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDateFinal;
 
     return GestureDetector(
-      onTap: () async {
-        if (formKey.currentState!.validate()) {
-          selectedDateFinal = parseAndFormatDate(
-            dateInput.text,
-            startInput.text,
-          );
-          await updateStatisticActivity(
-            context,
-            activity,
-            optionSelected,
-            categoryOnGoing,
-            nameInput,
-            dateInput,
-            startInput,
-            finishInput,
-            selectedDateFinal,
-          );
-        }
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(

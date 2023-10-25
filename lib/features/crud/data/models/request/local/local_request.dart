@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'local_request.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 4)
 class Activity extends HiveObject {
   Activity(
     this.date,
@@ -20,7 +20,7 @@ class Activity extends HiveObject {
   String toString() => 'Activity(date: $date, data: $data)';
 }
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 5)
 class DataModel extends HiveObject {
   @HiveField(0)
   final String? name;
@@ -40,8 +40,6 @@ class DataModel extends HiveObject {
     this.finishTime,
     this.category,
   });
-
- 
 
   @override
   String toString() {

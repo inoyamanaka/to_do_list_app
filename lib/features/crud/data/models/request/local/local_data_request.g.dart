@@ -8,7 +8,7 @@ part of 'local_data_request.dart';
 
 class StatisticDataModelAdapter extends TypeAdapter<StatisticDataModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 1;
 
   @override
   StatisticDataModel read(BinaryReader reader) {

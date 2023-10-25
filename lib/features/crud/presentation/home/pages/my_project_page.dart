@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:to_do_list_app/features/crud/data/models/request/local/local_project_request.dart';
 import 'package:to_do_list_app/infrastructure/constants/app_color.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class MyProjectPage extends StatelessWidget {
-  const MyProjectPage({super.key});
+  const MyProjectPage({
+    required this.projectActivity,
+    super.key,
+  });
+
+  final ProjectActivity projectActivity;
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +21,21 @@ class MyProjectPage extends StatelessWidget {
           SliverAppBar(
             pinned: true,
             iconTheme: const IconThemeData(color: Colors.black),
-            backgroundColor:
-                innerBoxIsScrolled ? Colors.white : Colors.transparent,
-            elevation: innerBoxIsScrolled ? 1 : 0,
-            title: Text('My Projects', style: MyTypography.bodySmall),
+            backgroundColor: Colors.white,
+            elevation: innerBoxIsScrolled ? 1 : 1,
+            title: Text(
+              'My Projects',
+              style: MyTypography.bodySmall,
+            ),
             expandedHeight: 240,
             flexibleSpace: FlexibleSpaceBar(
-              // title: Text('My Projects', style: MyTypography.bodySmall),
               background: Container(
                 height: 240,
-                color: const Color(0xffD9D9D9),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xff2b5876), Color(0xff4e4376)],
+                  ),
+                ),
               ),
             ),
           ),
@@ -47,11 +58,12 @@ class MyProjectPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Belajar Hacking',
-                            style: MyTypography.bodySmall,
+                            projectActivity.projectName,
+                            style: MyTypography.bodySmall
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Belajar Hacking',
+                            projectActivity.projectDate,
                             style: MyTypography.bodySmall,
                           ),
                         ],
@@ -60,7 +72,7 @@ class MyProjectPage extends StatelessWidget {
                         height: 16,
                       ),
                       Text(
-                        '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar neque eu purus sollicitudin, id interdum mauris lacinia. Vivamus auctor tincidunt nisi, ac bibendum leo sagittis vitae. Aliquam erat volutpat. Nulla facilisi. Sed nec eleifend metus. Integer pellentesque arcu ac sapien condimentum, at tristique dolor tincidunt. Sed euismod ipsum vel nibh vulputate, in venenatis neque feugiat.''',
+                        projectActivity.projectDescription,
                         textAlign: TextAlign.justify,
                         style: MyTypography.bodySmall.copyWith(
                           fontSize: 12,
@@ -70,11 +82,6 @@ class MyProjectPage extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      Text('Progress', style: MyTypography.bodySmall),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const LinearProgressIndicator(),
                       const SizedBox(
                         height: 16,
                       ),
@@ -86,7 +93,7 @@ class MyProjectPage extends StatelessWidget {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
-                        itemCount: 3,
+                        itemCount: projectActivity.projectDataActivity.length,
                         itemBuilder: (context, index) => SizedBox(
                           width: double.infinity,
                           child: FittedBox(
@@ -126,13 +133,19 @@ class MyProjectPage extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Test',
+                                                  projectActivity
+                                                      .projectDataActivity[
+                                                          index]
+                                                      .projectDataName,
                                                   style: MyTypography
                                                       .bodySmallWhite
                                                       .copyWith(fontSize: 12),
                                                 ),
                                                 Text(
-                                                  'Test',
+                                                  projectActivity
+                                                      .projectDataActivity[
+                                                          index]
+                                                      .projectDataName,
                                                   style: MyTypography.bodyMedium
                                                       .copyWith(fontSize: 10),
                                                 ),
@@ -150,7 +163,7 @@ class MyProjectPage extends StatelessWidget {
                                                       width: 5.w,
                                                     ),
                                                     Text(
-                                                      'Test',
+                                                      '''${projectActivity.projectDataActivity[index].projectStartTime} - ${projectActivity.projectDataActivity[index].projectDataName}''',
                                                       style: MyTypography
                                                           .labelMedium
                                                           .copyWith(

@@ -14,13 +14,18 @@ import 'package:to_do_list_app/features/auth/domain/usecases/login_usecase.dart'
 import 'package:to_do_list_app/features/auth/domain/usecases/register_usecase.dart';
 import 'package:to_do_list_app/infrastructure/env/env_config.dart';
 import 'package:to_do_list_app/infrastructure/network/dio_handler.dart';
+import 'package:to_do_list_app/infrastructure/utils/shared_prefs.dart';
 
 class AuthBinding extends Bindings {
   @override
-  void dependencies() {
+  Future<void> dependencies() async {
     final config = EnvConfig.getInstance();
+    final prefs = await SharedPrefs.getInstance();
     Get.lazyPut(
       () => config,
+    );
+    Get.lazyPut(
+      () => prefs,
     );
     Get.lazyPut<Dio>(() => DioHandler().dio, fenix: true);
     // datasources

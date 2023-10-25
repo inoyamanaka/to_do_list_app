@@ -24,11 +24,12 @@ class LoginDataSourceImpl implements LoginDataSource {
       'client_id': '',
       'client_secret': '',
     });
-
     final response = await _client.post<Map<String, dynamic>>(
       ApiPath.login,
       data: formData,
     );
+
+    print(response.statusCode);
 
     await localVerificationDatasource
         .addToken(LoginModel.fromJson(response.data!));

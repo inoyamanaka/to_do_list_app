@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:to_do_list_app/features/auth/controller/auth_controller.dart';
 import 'package:to_do_list_app/features/auth/data/models/request/register_body.dart';
+import 'package:to_do_list_app/features/auth/presentation/widgets/auth_textfield.dart';
 import 'package:to_do_list_app/infrastructure/navigation/routes.dart';
 
 final AuthController registerX = Get.find<AuthController>();
@@ -13,8 +14,21 @@ final TextEditingController username = TextEditingController();
 final TextEditingController email = TextEditingController();
 final TextEditingController password = TextEditingController();
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  @override
+  void dispose() {
+    super.dispose();
+    email.clear();
+    username.clear();
+    password.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,44 +64,27 @@ class RegisterPage extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   child: Column(
                     children: [
-                      TextFormField(
+                      AuthTextField(
+                        label: 'Username',
+                        icon: const Icon(FontAwesomeIcons.user),
                         controller: username,
-                        decoration: InputDecoration(
-                          hintText: 'mail@mail.com',
-                          labelText: 'Username',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          prefixIcon: const Icon(FontAwesomeIcons.user),
-                        ),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
+                      AuthTextField(
+                        label: 'Email',
+                        icon: const Icon(FontAwesomeIcons.envelope),
                         controller: email,
-                        decoration: InputDecoration(
-                          hintText: 'mail@mail.com',
-                          labelText: 'Email',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          prefixIcon: const Icon(FontAwesomeIcons.envelope),
-                        ),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
+                      AuthTextField(
+                        label: 'Password',
+                        icon: const Icon(FontAwesomeIcons.lock),
+                        isPassword: true,
                         controller: password,
-                        decoration: InputDecoration(
-                          hintText: 'password123',
-                          labelText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          prefixIcon: const Icon(FontAwesomeIcons.lock),
-                        ),
                       ),
                       const SizedBox(
                         height: 20,

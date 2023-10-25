@@ -1,12 +1,12 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_data_request.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/dialogue.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/pages/home_page.dart';
+import 'package:to_do_list_app/infrastructure/shared/widget/custom_snackbar.dart';
 import 'package:to_do_list_app/infrastructure/utils/notification.dart';
 
 bool isLater(String time1, String time2) {
@@ -57,7 +57,7 @@ Future<void> createDataModelAndScheduleNotification({
     } else {
       await NotificationService().scheduleNotification(
         title: 'Sudah waktunya....',
-        body: '$startTime - $name',
+        body: '$startTime:$finishTime - $name',
         scheduledNotificationDateTime: selectedDate,
       );
     }
@@ -72,17 +72,16 @@ Future<void> createDataModelAndScheduleNotification({
       );
     }
   }
-  await result.addActivity(activityModel);
 
-  Get.showSnackbar(
-    const GetSnackBar(
-      snackPosition: SnackPosition.TOP,
+  // add data
+  await result.addActivity(activityModel);
+  if (context.mounted) {
+    const TodoSnackbar(
       title: 'Pemberitahuan',
       message: 'Aktivitas berhasil ditambahkan',
-      icon: Icon(Icons.refresh),
-      duration: Duration(seconds: 3),
-    ),
-  );
+      type: SnackbarType.success,
+    ).show();
+  }
 }
 
 String? validateInput(String? value) {

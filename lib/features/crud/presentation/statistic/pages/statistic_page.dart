@@ -66,18 +66,23 @@ class _StatisticPageState extends State<StatisticPage> {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return [
                 SliverAppBar(
-                  toolbarHeight: 80,
-                  elevation: 0,
-                  centerTitle: true,
+                  elevation: innerBoxIsScrolled ? 3 : 0,
+                  pinned: true,
+                 
+                  backgroundColor:
+                      innerBoxIsScrolled ? Colors.white : Colors.transparent,
                   titleSpacing: 10,
-                  flexibleSpace: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xff2b5876), Color(0xff4e4376)],
-                      ),
+                  flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: innerBoxIsScrolled ? false : true,
+                    
+                    title: Text(
+                      'Statistic Activity',
+                      style: innerBoxIsScrolled
+                          ? MyTypography.bodySmall
+                          : MyTypography.bodySmall
+                              .copyWith(color: Colors.white),
                     ),
                   ),
-                  title: const Text('''Statistic Activity'''),
                 ),
               ];
             },

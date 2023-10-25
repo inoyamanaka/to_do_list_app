@@ -2,9 +2,9 @@
 
 import 'package:get/get.dart';
 import 'package:to_do_list_app/features/auth/controller/auth_binding.dart';
-import 'package:to_do_list_app/features/auth/presentation/introduction/pages/intorduction_page.dart';
-import 'package:to_do_list_app/features/auth/presentation/login/pages/login_page.dart';
-import 'package:to_do_list_app/features/auth/presentation/register/pages/register_page.dart';
+import 'package:to_do_list_app/features/auth/presentation/pages/intorduction_page.dart';
+import 'package:to_do_list_app/features/auth/presentation/pages/login_page.dart';
+import 'package:to_do_list_app/features/auth/presentation/pages/register_page.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_bindings.dart';
 import 'package:to_do_list_app/features/crud/presentation/main_menu_page.dart';
 import 'package:to_do_list_app/features/crud/presentation/profile/pages/profile_update_page.dart';
@@ -44,7 +44,7 @@ class Nav {
       transition: Transition.cupertino,
     ),
 
-     // PROFILE
+    // PROFILE
     GetPage(
       name: Routes.profileUpdate,
       page: () => const ProfileUpdatePage(),

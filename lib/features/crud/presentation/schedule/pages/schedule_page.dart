@@ -48,6 +48,7 @@ class _SchedulePageState extends State<SchedulePage> {
   @override
   void initState() {
     super.initState();
+    activity.getActivity();
     _scrollController = ScrollController()..addListener(_scrollListener);
   }
 

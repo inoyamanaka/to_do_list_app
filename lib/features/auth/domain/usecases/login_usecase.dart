@@ -7,7 +7,6 @@ import 'package:to_do_list_app/infrastructure/usecase/usecase.dart';
 
 class LoginUsecase extends UseCase<LoginEntity, LoginBody> {
   LoginUsecase(this.loginRepository);
-
   final LoginRepository loginRepository;
   @override
   Future<Either<Failure, LoginEntity>> call(LoginBody params) {

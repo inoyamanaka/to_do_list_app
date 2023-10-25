@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'local_data_request.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 class StatisticDataModel extends HiveObject {
   StatisticDataModel(
     this.nameCategory,

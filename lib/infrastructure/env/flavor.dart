@@ -11,14 +11,14 @@ class FlavorSettings {
   static FlavorSettings development() {
     return FlavorSettings(
       flavorName: 'development',
-      apiBaseUrl: 'https://1386-112-78-36-14.ngrok-free.app',
+      apiBaseUrl: 'https://to-do-list-app-backend.vercel.app/',
     );
   }
 
   static FlavorSettings stagging() {
     return FlavorSettings(
       flavorName: 'development',
-      apiBaseUrl: 'https://ba10-116-254-119-97.ngrok-free.app',
+      apiBaseUrl: 'https://192.168.100.30:8000/',
     );
   }
 }

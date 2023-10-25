@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
+import 'package:to_do_list_app/features/crud/presentation/add/components/function.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/button.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
@@ -37,6 +38,8 @@ class ActivityTabForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime selectedDateFinal;
+
     return ShowUpAnimation(
       child: Form(
         key: formKey,
@@ -130,7 +133,7 @@ class ActivityTabForm extends StatelessWidget {
                     },
                   ).toList(),
                 ),
-                SizedBox(height: 15.h),
+                SizedBox(height: 25.h),
                 SubmitButton(
                   formKey: formKey,
                   activity: activity,
@@ -142,7 +145,27 @@ class ActivityTabForm extends StatelessWidget {
                   finishInput: finishInput,
                   selectedDate: selectedDate,
                   title: 'Create Task',
+                  onTap: () async {
+                    if (formKey.currentState!.validate()) {
+                      selectedDateFinal = parseAndFormatDate(
+                        dateInput.text,
+                        startInput.text,
+                      );
+                      await updateStatisticActivity(
+                        context,
+                        activity,
+                        optionSelected.value,
+                        categoryOnGoing,
+                        nameInput,
+                        dateInput,
+                        startInput,
+                        finishInput,
+                        selectedDateFinal,
+                      );
+                    }
+                  },
                 ),
+                SizedBox(height: 35.h),
               ],
             ),
           ),

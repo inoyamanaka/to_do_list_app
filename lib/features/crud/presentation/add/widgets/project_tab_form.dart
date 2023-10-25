@@ -3,10 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
+import 'package:to_do_list_app/features/crud/data/models/request/local/local_project_request.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/button.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/pages/home_page.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/add_textfield.dart';
+import 'package:to_do_list_app/infrastructure/shared/widget/custom_snackbar.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class ProjectTabForm extends StatelessWidget {
@@ -21,10 +24,16 @@ class ProjectTabForm extends StatelessWidget {
     required this.activity,
     required this.categoryOnGoing,
     required this.selectedDate,
+    required this.projectName,
+    required this.projectDate,
+    required this.projectDes,
     super.key,
   });
 
   final GlobalKey<FormState> formKey;
+  final TextEditingController projectName;
+  final TextEditingController projectDes;
+  final TextEditingController projectDate;
   final TextEditingController nameInput;
   final TextEditingController dateInput;
   final TextEditingController startInput;
@@ -56,7 +65,7 @@ class ProjectTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
-                  controller: nameInput,
+                  controller: projectName,
                   title: 'Name',
                 ),
                 SizedBox(height: 15.h),
@@ -73,7 +82,7 @@ class ProjectTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
-                  controller: nameInput,
+                  controller: projectDes,
                   title: 'Description',
                 ),
                 SizedBox(height: 15.h),
@@ -92,7 +101,7 @@ class ProjectTabForm extends StatelessWidget {
                 SizedBox(height: 15.h),
                 AddTextField(
                   controller: startInput,
-                  title: 'Finish Time',
+                  title: 'Start Time',
                   ontap: () async {
                     FocusScope.of(context).requestFocus(FocusNode());
                     final result = await timePicker(context);
@@ -102,13 +111,13 @@ class ProjectTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
-                  controller: startInput,
-                  title: 'Start Time',
+                  controller: finishInput,
+                  title: 'Finish Time',
                   ontap: () async {
                     FocusScope.of(context).requestFocus(FocusNode());
                     final result = await timePicker(context);
                     final formattedDate = DateFormat.Hm().format(result!);
-                    startInput.text = formattedDate;
+                    finishInput.text = formattedDate;
                   },
                 ),
                 SizedBox(height: 15.h),
@@ -160,6 +169,33 @@ class ProjectTabForm extends StatelessWidget {
                   finishInput: finishInput,
                   selectedDate: selectedDate,
                   title: 'Create Task',
+                  onTap: () async {
+                    if (formKey.currentState!.validate()) {
+                      await result.addProject(
+                        ProjectActivity(
+                          projectId:
+                              DateTime.now().microsecondsSinceEpoch.toString(),
+                          projectDate: projectDate.text,
+                          projectDescription: projectDes.text,
+                          projectName: projectName.text,
+                          projectDataActivity: [
+                            ProjectDataActivity(
+                              projectDataName: nameInput.text,
+                              projectStartTime: startInput.text,
+                              projectFinishTime: finishInput.text,
+                            ),
+                          ],
+                        ),
+                      );
+                      if (context.mounted) {
+                        const TodoSnackbar(
+                          title: 'Pemberitahuan',
+                          message: 'Project berhasil ditambahkan',
+                          type: SnackbarType.success,
+                        ).show();
+                      }
+                    }
+                  },
                 ),
               ],
             ),

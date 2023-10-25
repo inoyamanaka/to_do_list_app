@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/infrastructure/navigation/routes.dart';
@@ -17,11 +18,26 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   Timer startTime() {
     const duration = Duration(milliseconds: 1800);
+
     return Timer(duration, route);
   }
 
   void route() {
-    Get.offAllNamed<void>(Routes.home);
+    final box = Hive.box<dynamic>('on_board');
+    final token = Hive.box<dynamic>('token_box');
+
+    final isFirst = box.get('isFirst');
+    final isLogin = token.get('token');
+
+    if (isFirst == null) {
+      Get.offAllNamed<void>(Routes.intro);
+    } else if (isFirst == true) {
+      if (isLogin == null) {
+        Get.offAllNamed<void>(Routes.login);
+      } else if (isLogin != null) {
+        Get.offAllNamed<void>(Routes.home);
+      }
+    }
   }
 
   @override
@@ -53,10 +69,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: ShowUpAnimation(
                     delayStart: const Duration(milliseconds: 150),
                     child: Center(
-                      child: Image.asset(
-                        'assets/images/to-do-list.png',
-                        width: 130,
-                        height: 150,
+                      child: CircleAvatar(
+                        radius: 100,
+                        backgroundColor: Colors.white,
+                        child: Image.asset(
+                          'assets/images/to-do-list.png',
+                          width: 130,
+                          height: 150,
+                        ),
                       ),
                     ),
                   ),

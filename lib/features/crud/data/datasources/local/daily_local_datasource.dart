@@ -7,7 +7,7 @@ abstract class DailyLocalDatasource {
 }
 
 class DailyLocalDatasourceImpl implements DailyLocalDatasource {
-  final box = Hive.box(dailyBox);
+  final box = Hive.box<void>(dailyBox);
   @override
   Future<List<DailyActivity>> getListDailyActivity() async {
     final values = List<DailyActivity>.from(box.values.cast<DailyActivity>());

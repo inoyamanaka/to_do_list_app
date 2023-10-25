@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:show_up_animation/show_up_animation.dart';
+import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
+import 'package:to_do_list_app/features/crud/presentation/main_menu_page.dart';
+import 'package:to_do_list_app/infrastructure/constants/constant.dart';
 import 'package:to_do_list_app/infrastructure/navigation/routes.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
+
+final CrudController result = Get.find<CrudController>();
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
@@ -61,7 +67,7 @@ class ProfileCard extends StatelessWidget {
                         style: MyTypography.bodySmall,
                       ),
                       Text(
-                        'Kaveh Uzumaki',
+                        result.user_data[0][0].username,
                         style: MyTypography.bodyTiny,
                       ),
                     ],
@@ -83,7 +89,7 @@ class ProfileCard extends StatelessWidget {
                         style: MyTypography.bodySmall,
                       ),
                       Text(
-                        'Kaveh Uzumaki',
+                        result.user_data[0][0].nomorHp,
                         style: MyTypography.bodyTiny,
                       ),
                     ],
@@ -105,7 +111,7 @@ class ProfileCard extends StatelessWidget {
                         style: MyTypography.bodySmall,
                       ),
                       Text(
-                        'Kaveh Uzumaki',
+                        result.user_data[0][0].email,
                         style: MyTypography.bodyTiny,
                       ),
                     ],
@@ -127,7 +133,7 @@ class ProfileCard extends StatelessWidget {
                         style: MyTypography.bodySmall,
                       ),
                       Text(
-                        'Kaveh Uzumaki',
+                        result.user_data[0][0].alamat,
                         style: MyTypography.bodyTiny,
                       ),
                     ],
@@ -135,11 +141,16 @@ class ProfileCard extends StatelessWidget {
                 ],
               ),
               Expanded(child: SizedBox(height: 10.h)),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  color: Color(0xff302727),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+              ElevatedButton(
+                onPressed: () {
+                  Hive.box<dynamic>(tokenBox).clear();
+                  Hive.box<dynamic>(userId).clear();
+                  selectedIndex = 0;
+                  Get.offAllNamed<void>(Routes.login);
+                },
+                style: const ButtonStyle(
+                  padding: MaterialStatePropertyAll(EdgeInsets.all(10)),
+                  backgroundColor: MaterialStatePropertyAll(Color(0xff302727)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -147,11 +158,12 @@ class ProfileCard extends StatelessWidget {
                     const Icon(
                       FontAwesomeIcons.rightFromBracket,
                       color: Colors.white,
+                      size: 20,
                     ),
                     SizedBox(width: 10.w),
                     Text(
                       'Log Out',
-                      style: MyTypography.bodyMedium,
+                      style: MyTypography.bodyMedium.copyWith(fontSize: 12),
                     ),
                   ],
                 ),

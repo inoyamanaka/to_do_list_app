@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
+import 'package:timelines/timelines.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/pages/home_page.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_card.dart';
 
@@ -20,47 +21,68 @@ class ShowAllProject extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: ShowUpAnimation(
-            delayStart: const Duration(milliseconds: 200),
-            child: ValueListenableBuilder(
-              valueListenable: isEmptyList,
-              builder: (context, value, child) => SizedBox(
-                height: MediaQuery.of(context).size.height +
-                    AppBar().preferredSize.height,
-                child: value
-                    ? ShowUpAnimation(
-                        child: SizedBox(
-                          height: 220,
-                          child: ListView.builder(
-                            itemCount: 5,
-                            itemBuilder: (context, index) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const FittedBox(child: MyProjectCard()),
-                                SizedBox(height: 10.w),
-                              ],
-                            ),
+      body: Center(
+        child: ShowUpAnimation(
+          delayStart: const Duration(milliseconds: 200),
+          child: ValueListenableBuilder(
+            valueListenable: isProjectEmpty,
+            builder: (context, value, child) => SizedBox(
+              height: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height,
+              child: value
+                  ? Container(
+                      padding: const EdgeInsets.all(35),
+                      child: Lottie.asset(
+                        'assets/lotties/sleep_cat.json',
+                      ),
+                    )
+                  : Expanded(
+                      child: Timeline.tileBuilder(
+                        theme: TimelineTheme.of(context).copyWith(
+                          nodePosition: 0.1,
+                          connectorTheme: const ConnectorThemeData(
+                            thickness: 2,
                           ),
                         ),
-                      )
-                    : ShowUpAnimation(
-                        child: SizedBox(
-                          height: 220,
-                          child: ListView.builder(
-                            itemCount: 4,
-                            itemBuilder: (context, index) => Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const FittedBox(child: MyProjectCard()),
-                                SizedBox(width: 10.w),
-                              ],
+                        builder: TimelineTileBuilder.connected(
+                          indicatorBuilder: (context, index) {
+                            return ShowUpAnimation(
+                              child: const DotIndicator(
+                                color: Color(0xff989CBC),
+                              ),
+                            );
+                          },
+                          connectorBuilder: (_, index, connectorType) {
+                            return ShowUpAnimation(
+                              child: SolidLineConnector(
+                                indent: connectorType == ConnectorType.start
+                                    ? 0
+                                    : 2.0,
+                                endIndent: connectorType == ConnectorType.end
+                                    ? 0
+                                    : 2.0,
+                                color: const Color(0xff33363F),
+                              ),
+                            );
+                          },
+                          contentsAlign: ContentsAlign.reverse,
+                          oppositeContentsBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+                            child: ShowUpAnimation(
+                              delayStart: Duration(milliseconds: 80 * index),
+                              child: MyProjectCard(
+                                projectActivity: result.project_list[0],
+                                index: index,
+                              ),
                             ),
                           ),
+                          itemCount: 5,
                         ),
                       ),
-              ),
+                    ),
             ),
           ),
         ),

@@ -7,6 +7,7 @@ part of 'login_response.dart';
 // **************************************************************************
 
 LoginModel _$LoginModelFromJson(Map<String, dynamic> json) => LoginModel(
-      accessToken: json['accessToken'] as String,
-      tokenType: json['tokenType'] as String,
+      accessToken: json['access_token'] as String,
+      tokenType: json['token_type'] as String,
+      id: json['id'] as int,
     );
