@@ -24,8 +24,9 @@ jobs:
       # - uses: dart-lang/setup-dart@v1
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Checkout flutter_app code
+        uses: actions/checkout@v3
+      - run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --flavor development --release --target=lib/main_development.dart
