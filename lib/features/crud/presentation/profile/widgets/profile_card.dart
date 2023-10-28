@@ -145,7 +145,7 @@ class ProfileCard extends StatelessWidget {
                 onPressed: () {
                   Hive.box<dynamic>(tokenBox).clear();
                   Hive.box<dynamic>(userId).clear();
-                  selectedIndex = 0;
+                  selectedIndex.value = 0;
                   Get.offAllNamed<void>(Routes.login);
                 },
                 style: const ButtonStyle(

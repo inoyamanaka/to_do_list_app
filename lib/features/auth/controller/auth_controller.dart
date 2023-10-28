@@ -50,26 +50,35 @@ class AuthController extends GetxController
 
   Future<void> login(LoginBody body) async {
     loginLoading(true);
-    final failureorSuccess = await loginUsecase.call(body);
-    print(failureorSuccess);
-    await failureorSuccess.fold(
-      (error) async {
-        Get.snackbar(
-          'Failure',
-          'Email atau Password yang anda masukan salah',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        loginLoading(false);
-        return error;
-      },
-      (data) async {
-        await Hive.box(tokenBox).put('token', data.accessToken);
-        Hive.box<dynamic>('user_id');
-        await Hive.box(userId).put('id', data.id);
-        loginLoading(false);
-        await Get.offNamed(Routes.home);
-      },
-    );
+    try {
+      final failureorSuccess = await loginUsecase.call(body);
+      await failureorSuccess.fold(
+        (error) async {
+          loginLoading(false);
+          Get.snackbar(
+            'Failure',
+            'Email atau Password yang anda masukan salah',
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+          return error;
+        },
+        (data) async {
+          await Hive.box(tokenBox).put('token', data.accessToken);
+          Hive.box<dynamic>('user_id');
+          await Hive.box(userId).put('id', data.id);
+          loginLoading(false);
+          await Get.offNamed(Routes.home);
+        },
+      );
+    } catch (e) {
+      loginLoading(false);
+      Get.snackbar(
+        'Failure',
+        'Email atau Password yang anda masukan salah',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 }

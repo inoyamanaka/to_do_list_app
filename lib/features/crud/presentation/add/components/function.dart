@@ -75,6 +75,8 @@ Future<void> createDataModelAndScheduleNotification({
 
   // add data
   await result.addActivity(activityModel);
+  await result.getActivity();
+
   if (context.mounted) {
     const TodoSnackbar(
       title: 'Pemberitahuan',

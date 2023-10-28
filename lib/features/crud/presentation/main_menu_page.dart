@@ -50,7 +50,8 @@ class MyMenuPage extends StatefulWidget {
   State<MyMenuPage> createState() => _MyMenuPageState();
 }
 
-int selectedIndex = 0;
+// int selectedIndex = 0;
+ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
 
 class _MyMenuPageState extends State<MyMenuPage>
     with SingleTickerProviderStateMixin {
@@ -59,9 +60,7 @@ class _MyMenuPageState extends State<MyMenuPage>
   void initState() {
     _tabController = TabController(length: 5, vsync: this)
       ..addListener(() {
-        setState(() {
-          selectedIndex = _tabController.index;
-        });
+        selectedIndex.value = _tabController.index;
       });
     super.initState();
   }
@@ -80,19 +79,22 @@ class _MyMenuPageState extends State<MyMenuPage>
             ),
           ],
         ),
-        child: BottomBarFloating(
-          items: items,
-          backgroundColor: Colors.white,
-          color: Colors.grey,
-          colorSelected: Colors.black,
-          indexSelected: selectedIndex,
-          paddingVertical: 14,
-          pad: 10,
-          onTap: (int index) => setState(() {
-            selectedIndex = index;
-            _tabController.index = index;
-          }),
-          top: -25,
+        child: ValueListenableBuilder(
+          valueListenable: selectedIndex,
+          builder: (context, value, child) => BottomBarFloating(
+            items: items,
+            backgroundColor: Colors.white,
+            color: Colors.grey,
+            colorSelected: Colors.black,
+            indexSelected: selectedIndex.value,
+            paddingVertical: 14,
+            pad: 10,
+            onTap: (index) {
+              selectedIndex.value = index;
+              _tabController.index = index;
+            },
+            top: -25,
+          ),
         ),
       ),
       body: SafeArea(

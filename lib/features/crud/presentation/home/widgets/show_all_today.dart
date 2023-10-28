@@ -40,7 +40,7 @@ class ShowTodayProject extends StatelessWidget {
                     : ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        itemCount: dateActivity[0].data.length,
+                        itemCount: dateActivity.value[0].data.length,
                         itemBuilder: (context, index) => Slidable(
                           key: UniqueKey(),
                           startActionPane: ActionPane(
@@ -50,7 +50,8 @@ class ShowTodayProject extends StatelessWidget {
                                 updateCategoryAndActivity(
                                   result,
                                   index,
-                                  dateActivity[0].data[index].id!,
+                                  dateActivity.value[0].data[index].id!,
+                                  dateActivity.value[0].data[index].category!,
                                 );
                               },
                             ),
@@ -71,11 +72,12 @@ class ShowTodayProject extends StatelessWidget {
                                 updateCategoryAndActivity(
                                   result,
                                   index,
-                                  dateActivity[0].data[index].id!,
+                                  dateActivity.value[0].data[index].id!,
+                                  dateActivity.value[0].data[index].category!,
                                 );
                               });
                             },
-                            result: dateActivity[0].data[index],
+                            result: dateActivity.value[0].data[index],
                           ),
                         ),
                       ),

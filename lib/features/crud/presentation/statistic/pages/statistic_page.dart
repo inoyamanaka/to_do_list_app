@@ -68,13 +68,11 @@ class _StatisticPageState extends State<StatisticPage> {
                 SliverAppBar(
                   elevation: innerBoxIsScrolled ? 3 : 0,
                   pinned: true,
-                 
                   backgroundColor:
                       innerBoxIsScrolled ? Colors.white : Colors.transparent,
                   titleSpacing: 10,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: innerBoxIsScrolled ? false : true,
-                    
                     title: Text(
                       'Statistic Activity',
                       style: innerBoxIsScrolled

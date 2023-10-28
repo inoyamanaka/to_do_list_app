@@ -33,10 +33,6 @@ class _AddActivityPageState extends State<AddActivityPage> {
 
   TextEditingController projectNameInput = TextEditingController();
   TextEditingController projectDescInput = TextEditingController();
-  // TextEditingController projectDateInput = TextEditingController();
-  // TextEditingController projectNameDataInput = TextEditingController();
-  // TextEditingController projectStartInput = TextEditingController();
-  // TextEditingController projectFinishInput = TextEditingController();
 
   int categoryOnGoing = 0;
   final CrudController activity = Get.find<CrudController>();

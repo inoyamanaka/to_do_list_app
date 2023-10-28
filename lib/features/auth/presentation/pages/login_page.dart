@@ -36,34 +36,34 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     return ScreenUtilInit(
       builder: (context, child) => Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: size.height,
-            child: Stack(
-              children: [
-                Obx(
-                  () => loginX.loginLoading.isTrue
-                      ? Stack(
-                          children: <Widget>[
-                            // Widget latar belakang gelap transparan
-                            ColoredBox(
-                              color: Colors.black.withOpacity(0.5),
-                              child: const Center(),
-                            ),
+        body: Stack(
+          children: [
+            Obx(
+              () => loginX.loginLoading.isTrue
+                  ? Stack(
+                      children: <Widget>[
+                        // Widget latar belakang gelap transparan
+                        ColoredBox(
+                          color: Colors.black.withOpacity(0.5),
+                          child: const Center(),
+                        ),
 
-                            const Padding(
-                              padding: EdgeInsets.only(top: 80),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 80),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
                             ),
-                          ],
-                        )
-                      : const SizedBox(),
-                ),
-                Column(
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
+            ),
+            SingleChildScrollView(
+              child: SizedBox(
+                height: size.height,
+                child: Column(
                   children: [
                     Flexible(
                       child: ClipPath(
@@ -187,9 +187,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

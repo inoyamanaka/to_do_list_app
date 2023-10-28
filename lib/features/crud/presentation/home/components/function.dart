@@ -5,16 +5,27 @@ import 'package:to_do_list_app/features/crud/data/models/request/local/local_dat
 import 'package:to_do_list_app/features/crud/presentation/home/pages/home_page.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
-void updateCategoryAndActivity(CrudController result, int index, String id) {
-  print(result.statisticResult);
-  final onFinish = result.statisticResult[0][index].categoryFinished! + 1;
-  final onGoing = result.statisticResult[0][index].categoryOngoing! + 1;
-  final category = result.statisticResult[0][index].nameCategory!;
+void updateCategoryAndActivity(
+  CrudController result,
+  int index,
+  String id,
+  String category,
+) {
+  int onGoing;
+
+  // index ga sama
+  final dataResult = result.statisticResult[0]
+      .firstWhere((data) => data.nameCategory == category);
+
+  final onFinish = dataResult.categoryFinished! + 1;
+  onGoing = dataResult.categoryOngoing!;
   final statisticModel = StatisticDataModel(
     category,
     onFinish,
     onGoing,
   );
+  print(category);
+  print(result.statisticResult[0]);
   result
     ..updateStatistic(category, statisticModel)
     ..deleteActivity(index, id)
@@ -44,21 +55,6 @@ void showConfirmationDialog(BuildContext context, VoidCallback onConfirm) {
   ).show();
 }
 
-Future<void> fetchDataAndUpdateList(String formattedDate) async {
-  try {
-    dateActivity = result.result[0].where((activity) {
-      return activity.date == formattedDate;
-    }).toList();
-    if (dateActivity.isEmpty) {
-      isEmptyList.value = true;
-    } else {
-      isEmptyList.value = false;
-    }
-  } catch (e) {
-    isEmptyList.value = true;
-  }
-}
-
 Future<void> fetchDataproject() async {
   try {
     if (result.project_list[0].isEmpty) {
@@ -68,5 +64,20 @@ Future<void> fetchDataproject() async {
     }
   } catch (e) {
     isProjectEmpty.value = true;
+  }
+}
+
+Future<void> fetchDataAndUpdateList(String formattedDate) async {
+  try {
+    dateActivity.value = result.result[0].where((activity) {
+      return activity.date == formattedDate;
+    }).toList();
+    if (dateActivity.value.isEmpty) {
+      isEmptyList.value = true;
+    } else {
+      isEmptyList.value = false;
+    }
+  } catch (e) {
+    isEmptyList.value = true;
   }
 }

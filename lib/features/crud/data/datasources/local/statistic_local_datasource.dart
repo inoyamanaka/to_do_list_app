@@ -48,6 +48,25 @@ class StatisticocalDataSourceImpl implements StatisticLocalDataSource {
   @override
   Future<void> updateStatistic(String category, StatisticDataModel data) async {
     await item.put(category, data);
-    item.values.cast<StatisticDataModel>();
+    // if (category == 'Olahraga') {
+    //   await item.put(, data);
+    // }
+    // if (category == 'Belajar') {
+    //   await item.putAt(0, data);
+    // }
+    // if (category == 'Pekerjaan') {
+    //   await item.putAt(2, data);
+    // }
+    // if (category == 'Hobi') {
+    //   await item.putAt(3, data);
+    // }
+    // if (category == 'Ibadah') {
+    //   await item.putAt(4, data);
+    // }
+    // if (category == 'Hiburan') {
+    //   await item.putAt(5, data);
+    // }
+
+    // item.values.cast<StatisticDataModel>();
   }
 }

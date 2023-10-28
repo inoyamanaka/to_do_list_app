@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, omit_local_variable_types, await_only_futures
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -12,11 +11,12 @@ import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_request.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/components/function.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/widgets/appbar.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/project_today_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/show_all_project.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/show_all_today.dart';
-import 'package:to_do_list_app/infrastructure/theme/typography.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/widgets/title_row.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,9 +29,8 @@ final CrudController result = Get.find<CrudController>();
 ValueNotifier<bool> isEmptyList = ValueNotifier<bool>(true);
 ValueNotifier<bool> isProjectEmpty = ValueNotifier<bool>(true);
 ValueNotifier<bool> lastStatus = ValueNotifier<bool>(true);
+ValueNotifier<List<Activity>> dateActivity = ValueNotifier<List<Activity>>([]);
 
-// bool isEmptyList = true;
-List<Activity> dateActivity = [];
 DateTime dateTimeIndex = DateTime.now();
 String formattedDate = DateFormat('dd MMMM yyyy').format(dateTimeIndex);
 
@@ -49,23 +48,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollListener() {
-    if (_isShrink != lastStatus) {
+    if (_isShrink != lastStatus.value) {
       lastStatus.value = _isShrink;
     }
   }
 
   Future<void> fetchData() async {
-    await result.getActivity();
     await result.getProject();
     await result.getUser(int.parse(id.get('id').toString()));
-    await fetchDataAndUpdateList(formattedDate);
     await fetchDataproject();
     await result.getStatistic();
+    await result.getActivity();
   }
 
   @override
   void initState() {
     super.initState();
+    fetchDataAndUpdateList(formattedDate);
+
     fetchData();
     _scrollController = ScrollController()..addListener(_scrollListener);
   }
@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(),
           );
         } else {
-          print(result.result[0]);
           return ScreenUtilInit(
             builder: (context, child) => SafeArea(
               top: false,
@@ -113,83 +112,16 @@ class _HomePageState extends State<HomePage> {
                       headerSliverBuilder:
                           (BuildContext context, bool innerBoxIsScrolled) {
                         return [
-                          ValueListenableBuilder(
-                            valueListenable: lastStatus,
-                            builder: (context, value, child) => SliverAppBar(
-                              pinned: true,
-                              floating: true,
-                              elevation: 3,
-                              backgroundColor: Colors.transparent,
-                              expandedHeight: 120,
-                              collapsedHeight: 100,
-                              flexibleSpace: FlexibleSpaceBar(
-                                titlePadding: EdgeInsets.zero,
-                                expandedTitleScale: 1,
-                                title: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 500),
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.only(left: 8),
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xff2b5876),
-                                        Color(0xff4e4376),
-                                      ],
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: SingleChildScrollView(
-                                      child: Row(
-                                        children: [
-                                          const Padding(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: CircleAvatar(
-                                              radius: 35,
-                                              backgroundImage: AssetImage(
-                                                'assets/images/avatar.png',
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                result.user_data[0][0].username,
-                                                style: MyTypography.bodySmall
-                                                    .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                '''$dayName, $day $monthName $year''',
-                                                style: MyTypography.bodyTiny
-                                                    .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                          CustomHomeAppBar(
+                            dayName: dayName,
+                            day: day,
+                            monthName: monthName,
+                            year: year,
                           ),
                         ];
                       },
                       body: ShowUpAnimation(
                         child: AnimatedContainer(
-                          // height: 1000,
                           duration: const Duration(milliseconds: 300),
                           decoration: _isShrink
                               ? const BoxDecoration(
@@ -206,27 +138,11 @@ class _HomePageState extends State<HomePage> {
                             physics: const NeverScrollableScrollPhysics(),
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      AutoSizeText(
-                                        'My Projects',
-                                        style: MyTypography.bodySmall,
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Get.to<void>(ShowAllProject.new);
-                                        },
-                                        child: Text(
-                                          'Show all',
-                                          style: MyTypography.bodySmall,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                TitleRow(
+                                  title: 'My Projects',
+                                  onPress: () {
+                                    Get.to<void>(ShowAllProject.new);
+                                  },
                                 ),
                                 ShowUpAnimation(
                                   child: SizedBox(
@@ -272,29 +188,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      AutoSizeText(
-                                        'Today Activity',
-                                        style: MyTypography.bodySmall,
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Get.to<void>(ShowTodayProject.new);
-                                        },
-                                        child: Text(
-                                          'Show all',
-                                          style: MyTypography.bodySmall,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                TitleRow(
+                                  title: 'My Projects',
+                                  onPress: () {
+                                    Get.to<void>(ShowTodayProject.new);
+                                  },
                                 ),
                                 ShowUpAnimation(
                                   delayStart: const Duration(milliseconds: 200),
@@ -302,11 +200,10 @@ class _HomePageState extends State<HomePage> {
                                     valueListenable: isEmptyList,
                                     builder: (context, value, child) =>
                                         SizedBox(
-                                      height: dateActivity.isNotEmpty
+                                      height: dateActivity.value.isNotEmpty
                                           ? 3 * 150
                                           : 200,
-                                      child: value ||
-                                              dateActivity[0].data.isEmpty
+                                      child: value
                                           ? Container(
                                               alignment: Alignment.topCenter,
                                               padding:
@@ -317,36 +214,45 @@ class _HomePageState extends State<HomePage> {
                                                 'assets/lotties/sleep_cat.json',
                                               ),
                                             )
-                                          : ListView.builder(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              padding: EdgeInsets.zero,
-                                              itemCount: dateActivity[0]
-                                                          .data
-                                                          .length >=
-                                                      3
-                                                  ? 3
-                                                  : dateActivity[0].data.length,
-                                              itemBuilder: (context, index) =>
-                                                  Slidable(
-                                                key: UniqueKey(),
-                                                child: ProjectCard(
-                                                  index: index,
-                                                  onComplete: () {
-                                                    showConfirmationDialog(
-                                                        context, () {
-                                                      updateCategoryAndActivity(
-                                                        result,
-                                                        index,
-                                                        dateActivity[0]
-                                                            .data[index]
-                                                            .id!,
-                                                      );
-                                                    });
-                                                  },
-                                                  result: dateActivity[0]
-                                                      .data[index],
+                                          : ValueListenableBuilder(
+                                              valueListenable: dateActivity,
+                                              builder:
+                                                  (context, value, child) =>
+                                                      ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                padding: EdgeInsets.zero,
+                                                itemCount:
+                                                    value[0].data.length >= 3
+                                                        ? 3
+                                                        : value[0].data.length,
+                                                itemBuilder: (context, index) =>
+                                                    Slidable(
+                                                  key: UniqueKey(),
+                                                  child: ProjectCard(
+                                                    index: index,
+                                                    onComplete: () {
+                                                      showConfirmationDialog(
+                                                          context, () {
+                                                        updateCategoryAndActivity(
+                                                          result,
+                                                          index,
+                                                          value[0]
+                                                              .data[index]
+                                                              .id!,
+                                                          value[0]
+                                                              .data[index]
+                                                              .category!,
+                                                        );
+                                                        fetchDataAndUpdateList(
+                                                          formattedDate,
+                                                        );
+                                                      });
+                                                    },
+                                                    result:
+                                                        value[0].data[index],
+                                                  ),
                                                 ),
                                               ),
                                             ),
