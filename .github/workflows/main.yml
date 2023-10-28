@@ -47,7 +47,7 @@ jobs:
     # Create Release
     - uses: ncipollo/release-action@v1.10.0
       with:
-        artifacts: "build/app/outputs/flutter-apk/release/*.apk, build/app/outputs/bundle/release/*.aab"
+        artifacts: "build/app/outputs/flutter-apk/*.apk, build/app/outputs/bundle/release/*.aab"
         commit: master
         tag: "on_deploy"
         allowUpdates: true
