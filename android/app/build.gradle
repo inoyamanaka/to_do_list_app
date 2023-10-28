@@ -62,7 +62,7 @@ android {
 
     signingConfigs {
             release {
-                storeFile file('D:/flutter/to_do_list_app/keystore.jks')
+                storeFile file('keystore.jks')
                 keyAlias = 'key'
                 keyPassword 'lambang123'
                 storePassword 'lambang123'
