@@ -7,7 +7,7 @@ on:
     branches:
     - master
     tags:
-      - "v*"
+      - "on_deploy"
     
 # on: push    # Default will running for every branch.
     
@@ -47,7 +47,7 @@ jobs:
     # Create Release
     - uses: ncipollo/release-action@v1.10.0
       with:
-        artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/bundle/release/*.aab"
+        artifacts: "build/app/outputs/flutter-apk/release/*.apk, build/app/outputs/bundle/release/*.aab"
         commit: master
         tag: "on_deploy"
         allowUpdates: true
@@ -56,4 +56,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: release-apk
-        path: build/app/outputs/apk/
+        path: build/app/outputs/flutter-apk/
