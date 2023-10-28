@@ -6,6 +6,7 @@ import 'package:to_do_list_app/features/auth/domain/entities/login_entity.dart';
 import 'package:to_do_list_app/infrastructure/constants/api_path.dart';
 import 'package:to_do_list_app/infrastructure/error/excaptions.dart';
 
+// ignore: one_member_abstracts
 abstract class LoginDataSource {
   Future<LoginEntity> login(LoginBody body);
 }

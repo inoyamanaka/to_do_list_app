@@ -5,4 +5,13 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    
+<application 
+    android:label="DailyDo" 
+    android:uandroid:networkSecurityConfig="@xml/network_security_config" 
+    sesCleartextTraffic="true"
+    android:allowBackup="false"
+    android:fullBackupContent="false" >
+</application>
+
 </manifest>

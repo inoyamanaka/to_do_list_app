@@ -23,7 +23,7 @@ class AuthTextField extends StatelessWidget {
       builder: (context, value, child) => TextFormField(
         controller: controller,
         cursorColor: const Color(0xff171820),
-        obscureText: isPassword! ? showPassword.value : false,
+        obscureText: isPassword! ? value : false,
         decoration: InputDecoration(
           prefixIconColor: const Color.fromARGB(255, 9, 12, 35),
           labelText: label,

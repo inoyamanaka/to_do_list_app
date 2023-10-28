@@ -4,6 +4,7 @@ import 'package:to_do_list_app/features/auth/data/models/response/register_respo
 import 'package:to_do_list_app/features/auth/domain/entities/register_entity.dart';
 import 'package:to_do_list_app/infrastructure/constants/api_path.dart';
 
+// ignore: one_member_abstracts
 abstract class RegisterDataSource {
   Future<RegisterEntity> register(RegisterBody body);
 }

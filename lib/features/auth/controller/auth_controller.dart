@@ -21,11 +21,14 @@ class AuthController extends GetxController
 
   // loading state
   RxBool loginLoading = false.obs;
+  RxBool registerLoading = false.obs;
+
   // var vRegisterLoading = false.obs;
   // var vLoginLoading = false.obs;
   // var vLogoutLoading = false.obs;
 
   Future<void> register(RegisterBody body) async {
+    registerLoading(true);
     final failureorSuccess = await registerUsecase.call(body);
     failureorSuccess.fold(
       (error) {
@@ -34,7 +37,7 @@ class AuthController extends GetxController
           message: 'Email atau Password yang anda masukan salah',
           type: SnackbarType.error,
         );
-
+        registerLoading(false);
         return error;
       },
       (data) async {
@@ -43,6 +46,7 @@ class AuthController extends GetxController
           message: 'Berhasil registrasi akun',
           type: SnackbarType.success,
         );
+        registerLoading(false);
         return data;
       },
     );
@@ -57,7 +61,7 @@ class AuthController extends GetxController
           loginLoading(false);
           Get.snackbar(
             'Failure',
-            'Email atau Password yang anda masukan salah',
+            '$error',
             backgroundColor: Colors.red,
             colorText: Colors.white,
           );

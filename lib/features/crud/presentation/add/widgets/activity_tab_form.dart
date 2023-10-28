@@ -7,7 +7,7 @@ import 'package:to_do_list_app/features/crud/presentation/add/components/functio
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/button.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
-import 'package:to_do_list_app/features/crud/presentation/home/widgets/add_textfield.dart';
+import 'package:to_do_list_app/features/crud/presentation/add/widgets/add_textfield.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class ActivityTabForm extends StatelessWidget {
@@ -135,15 +135,7 @@ class ActivityTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 25.h),
                 SubmitButton(
-                  formKey: formKey,
-                  activity: activity,
-                  optionSelected: optionSelected.value,
-                  categoryOnGoing: categoryOnGoing,
-                  nameInput: nameInput,
-                  dateInput: dateInput,
-                  startInput: startInput,
-                  finishInput: finishInput,
-                  selectedDate: selectedDate,
+  
                   title: 'Create Task',
                   onTap: () async {
                     if (formKey.currentState!.validate()) {

@@ -7,11 +7,13 @@ class AddTextField extends StatelessWidget {
     required this.title,
     super.key,
     this.ontap,
+    this.isDescription = false,
   });
 
   final TextEditingController controller;
   final String title;
   final VoidCallback? ontap;
+  final bool? isDescription;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,11 @@ class AddTextField extends StatelessWidget {
       controller: controller,
       validator: validateInput,
       onTap: ontap,
+      maxLines: isDescription! ? 8 : 1,
       decoration: InputDecoration(
         labelText: title,
+        isDense: true,
+        alignLabelWithHint: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),

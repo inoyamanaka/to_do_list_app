@@ -4,11 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_project_request.dart';
+import 'package:to_do_list_app/features/crud/presentation/add/widgets/add_textfield.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/button.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/components/function.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/pages/home_page.dart';
-import 'package:to_do_list_app/features/crud/presentation/home/widgets/add_textfield.dart';
 import 'package:to_do_list_app/infrastructure/shared/widget/custom_snackbar.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
@@ -16,7 +17,6 @@ class ProjectTabForm extends StatelessWidget {
   const ProjectTabForm({
     required this.formKey,
     required this.nameInput,
-    required this.dateInput,
     required this.startInput,
     required this.finishInput,
     required this.optionSelected,
@@ -35,7 +35,6 @@ class ProjectTabForm extends StatelessWidget {
   final TextEditingController projectDes;
   final TextEditingController projectDate;
   final TextEditingController nameInput;
-  final TextEditingController dateInput;
   final TextEditingController startInput;
   final TextEditingController finishInput;
   final ValueNotifier<String> optionSelected;
@@ -70,20 +69,21 @@ class ProjectTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
-                  controller: dateInput,
+                  controller: projectDate,
                   title: 'Date',
                   ontap: () async {
                     FocusScope.of(context).requestFocus(FocusNode());
                     final pickedDate = await datePicker(context);
                     final formattedDate =
                         DateFormat('dd MMMM yyyy').format(pickedDate!);
-                    dateInput.text = formattedDate;
+                    projectDate.text = formattedDate;
                   },
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
                   controller: projectDes,
                   title: 'Description',
+                  isDescription: true,
                 ),
                 SizedBox(height: 15.h),
                 Align(
@@ -159,15 +159,6 @@ class ProjectTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 SubmitButton(
-                  formKey: formKey,
-                  activity: activity,
-                  optionSelected: optionSelected.value,
-                  categoryOnGoing: categoryOnGoing,
-                  nameInput: nameInput,
-                  dateInput: dateInput,
-                  startInput: startInput,
-                  finishInput: finishInput,
-                  selectedDate: selectedDate,
                   title: 'Create Task',
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
@@ -194,6 +185,7 @@ class ProjectTabForm extends StatelessWidget {
                           type: SnackbarType.success,
                         ).show();
                       }
+                      await fetchDataproject();
                     }
                   },
                 ),

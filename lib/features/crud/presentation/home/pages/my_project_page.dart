@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_project_request.dart';
-import 'package:to_do_list_app/infrastructure/constants/app_color.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/widgets/my_project_detail.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class MyProjectPage extends StatelessWidget {
@@ -94,106 +92,10 @@ class MyProjectPage extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         itemCount: projectActivity.projectDataActivity.length,
-                        itemBuilder: (context, index) => SizedBox(
-                          width: double.infinity,
-                          child: FittedBox(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                // horizontal: 8,
-                                vertical: 8,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      gradient: colorSchedule[
-                                          index % colorSchedule.length],
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(15),
-                                      ),
-                                    ),
-                                    padding: EdgeInsets.all(10.h),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 25,
-                                              child: Image.asset(
-                                                'assets/images/Olahraga.png',
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  projectActivity
-                                                      .projectDataActivity[
-                                                          index]
-                                                      .projectDataName,
-                                                  style: MyTypography
-                                                      .bodySmallWhite
-                                                      .copyWith(fontSize: 12),
-                                                ),
-                                                Text(
-                                                  projectActivity
-                                                      .projectDataActivity[
-                                                          index]
-                                                      .projectDataName,
-                                                  style: MyTypography.bodyMedium
-                                                      .copyWith(fontSize: 10),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.watch,
-                                                      color: Colors.white,
-                                                      size: 15,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5.w,
-                                                    ),
-                                                    Text(
-                                                      '''${projectActivity.projectDataActivity[index].projectStartTime} - ${projectActivity.projectDataActivity[index].projectDataName}''',
-                                                      style: MyTypography
-                                                          .labelMedium
-                                                          .copyWith(
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 15.w,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            FontAwesomeIcons.listUl,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        itemBuilder: (context, index) =>
+                            MyProjectPageDetailCard(
+                          projectActivity: projectActivity,
+                          index: index,
                         ),
                       ),
                     ],

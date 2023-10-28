@@ -105,17 +105,14 @@ Future<void> updateStatisticActivity(
   DateTime selectedDate,
 ) async {
   var updatedCategoryOnGoing = categoryOnGoing;
+  var updatedCategoryFinish = 0;
   if (activity.statisticResult.isNotEmpty) {
     updatedCategoryOnGoing = 0;
 
-    for (final dataModel in activity.statisticResult[0]) {
-      if (dataModel.nameCategory == optionSelected) {
-        updatedCategoryOnGoing = dataModel.categoryOngoing!;
-        updatedCategoryOnGoing += 1;
-
-        break;
-      }
-    }
+    final dataResult = result.statisticResult[0]
+        .firstWhere((data) => data.nameCategory == optionSelected);
+    updatedCategoryOnGoing = dataResult.categoryOngoing! + 1;
+    updatedCategoryFinish = dataResult.categoryFinished!;
   } else {
     updatedCategoryOnGoing += 1;
   }
@@ -127,7 +124,7 @@ Future<void> updateStatisticActivity(
     startTime: startInput.text,
     finishTime: finishInput.text,
     selectedDate: selectedDate,
-    onFinish: 0,
+    onFinish: updatedCategoryFinish,
     onGoing: updatedCategoryOnGoing,
     context: context,
   );

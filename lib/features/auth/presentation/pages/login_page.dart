@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
               () => loginX.loginLoading.isTrue
                   ? Stack(
                       children: <Widget>[
-                        // Widget latar belakang gelap transparan
                         ColoredBox(
                           color: Colors.black.withOpacity(0.5),
                           child: const Center(),

@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:to_do_list_app/features/auth/domain/entities/login_entity.dart';
 import 'package:to_do_list_app/infrastructure/constants/constant.dart';
 
+// ignore: one_member_abstracts
 abstract class LocalVerificationDatasource {
   Future<void> addToken(LoginEntity data);
 }

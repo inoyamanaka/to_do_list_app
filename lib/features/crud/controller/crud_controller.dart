@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -65,7 +67,7 @@ class CrudController extends GetxController
 
   Future<void> getStatistic() async {
     final response = await localGetStatisticUseCase.call(NoParams());
-    
+
     statisticResult.assign(response);
   }
 
@@ -80,7 +82,6 @@ class CrudController extends GetxController
 
   Future<void> getProject() async {
     final response = await localGetProjectUseCase.call(NoParams());
-
     project_list.assign(response);
   }
 

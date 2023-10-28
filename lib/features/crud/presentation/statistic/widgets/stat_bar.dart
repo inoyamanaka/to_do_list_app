@@ -64,8 +64,6 @@ Column categoryColumn(int index, String category, int onGoing, int finish) {
   if (finish == 0) {
     percentage = 0;
   } else {
-    print(finish);
-    print(onGoing);
     percentage = ((finish / onGoing) * 100).toInt();
   }
 

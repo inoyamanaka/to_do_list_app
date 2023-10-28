@@ -3,6 +3,7 @@ import 'package:to_do_list_app/features/auth/data/models/request/register_body.d
 import 'package:to_do_list_app/features/auth/domain/entities/register_entity.dart';
 import 'package:to_do_list_app/infrastructure/error/failures.dart';
 
+// ignore: one_member_abstracts
 abstract class RegisterRepository {
   Future<Either<Failure, RegisterEntity>> register(RegisterBody body);
 }

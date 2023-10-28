@@ -24,8 +24,6 @@ void updateCategoryAndActivity(
     onFinish,
     onGoing,
   );
-  print(category);
-  print(result.statisticResult[0]);
   result
     ..updateStatistic(category, statisticModel)
     ..deleteActivity(index, id)
@@ -57,7 +55,10 @@ void showConfirmationDialog(BuildContext context, VoidCallback onConfirm) {
 
 Future<void> fetchDataproject() async {
   try {
-    if (result.project_list[0].isEmpty) {
+    await result.getProject();
+    projectList.value = result.project_list[0].toList();
+
+    if (projectList.value.isEmpty) {
       isProjectEmpty.value = true;
     } else {
       isProjectEmpty.value = false;
@@ -69,10 +70,12 @@ Future<void> fetchDataproject() async {
 
 Future<void> fetchDataAndUpdateList(String formattedDate) async {
   try {
-    dateActivity.value = result.result[0].where((activity) {
+    await result.getActivity();
+    activityList.value = result.result[0].where((activity) {
       return activity.date == formattedDate;
     }).toList();
-    if (dateActivity.value.isEmpty) {
+
+    if (activityList.value[0].data.isEmpty || activityList.value.isEmpty) {
       isEmptyList.value = true;
     } else {
       isEmptyList.value = false;
