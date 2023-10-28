@@ -50,6 +50,7 @@ jobs:
         artifacts: "*.apk, *.aab"
         commit: master
         tag: "on_deploy"
+        allowUpdates: true
     
     # Upload generated apk to the artifacts.
     - uses: actions/upload-artifact@v1
