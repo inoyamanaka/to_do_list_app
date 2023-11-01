@@ -72,8 +72,9 @@ Column categoryColumn(int index, String category, int onGoing, int finish) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 110.w,
+          Container(
+            color: Colors.amber,
+            width: 105.w,
             child: Row(
               children: [
                 Container(
@@ -94,9 +95,13 @@ Column categoryColumn(int index, String category, int onGoing, int finish) {
               ],
             ),
           ),
-          Text(
-            '$finish dari $onGoing',
-            style: MyTypography.bodyTiny,
+          Container(
+            width: 90,
+            color: Colors.blue,
+            child: Text(
+              '$finish dari $onGoing',
+              style: MyTypography.bodyTiny,
+            ),
           ),
           Text(
             '$percentage%',

@@ -67,6 +67,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
                     innerBoxIsScrolled ? Colors.white : Colors.transparent,
                 titleSpacing: 10,
                 flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: const EdgeInsets.symmetric(vertical: 10),
                   centerTitle: true,
                   title: Text(
                     'Create New Activity',

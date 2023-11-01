@@ -70,9 +70,9 @@ class _StatisticPageState extends State<StatisticPage> {
                   pinned: true,
                   backgroundColor:
                       innerBoxIsScrolled ? Colors.white : Colors.transparent,
-                  titleSpacing: 10,
                   flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: innerBoxIsScrolled ? false : true,
+                    titlePadding: const EdgeInsets.symmetric(vertical: 10),
+                    centerTitle: true,
                     title: Text(
                       'Statistic Activity',
                       style: innerBoxIsScrolled

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/data/models/request/local/local_project_request.dart';
@@ -66,6 +67,7 @@ class ProjectTabForm extends StatelessWidget {
                 AddTextField(
                   controller: projectName,
                   title: 'Name',
+                  suffixIcon: const Icon(Remix.focus_2_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
@@ -78,12 +80,14 @@ class ProjectTabForm extends StatelessWidget {
                         DateFormat('dd MMMM yyyy').format(pickedDate!);
                     projectDate.text = formattedDate;
                   },
+                  suffixIcon: const Icon(Remix.calendar_2_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
                   controller: projectDes,
                   title: 'Description',
                   isDescription: true,
+                  suffixIcon: const Icon(Remix.file_text_line),
                 ),
                 SizedBox(height: 15.h),
                 Align(
@@ -97,6 +101,7 @@ class ProjectTabForm extends StatelessWidget {
                 AddTextField(
                   controller: nameInput,
                   title: 'Name',
+                  suffixIcon: const Icon(Remix.focus_2_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
@@ -108,6 +113,7 @@ class ProjectTabForm extends StatelessWidget {
                     final formattedDate = DateFormat.Hm().format(result!);
                     startInput.text = formattedDate;
                   },
+                  suffixIcon: const Icon(Remix.time_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
@@ -119,6 +125,7 @@ class ProjectTabForm extends StatelessWidget {
                     final formattedDate = DateFormat.Hm().format(result!);
                     finishInput.text = formattedDate;
                   },
+                  suffixIcon: const Icon(Remix.time_fill),
                 ),
                 SizedBox(height: 15.h),
                 Align(

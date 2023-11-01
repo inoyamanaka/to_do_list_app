@@ -5,6 +5,7 @@ class AddTextField extends StatelessWidget {
   const AddTextField({
     required this.controller,
     required this.title,
+    required this.suffixIcon,
     super.key,
     this.ontap,
     this.isDescription = false,
@@ -14,6 +15,7 @@ class AddTextField extends StatelessWidget {
   final String title;
   final VoidCallback? ontap;
   final bool? isDescription;
+  final Icon suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class AddTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        suffixIcon: suffixIcon,
       ),
     );
   }

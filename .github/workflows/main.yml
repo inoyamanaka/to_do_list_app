@@ -43,6 +43,7 @@ jobs:
     
     # Build apk.
     - run: flutter build apk --flavor development --release --target=lib/main_development.dart
+    - run: flutter build appbundle --flavor development --release --target=lib/main_development.dart
 
     # Create Release
     - uses: ncipollo/release-action@v1.10.0

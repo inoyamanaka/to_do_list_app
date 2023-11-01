@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'package:to_do_list_app/features/crud/controller/crud_controller.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/components/function.dart';
+import 'package:to_do_list_app/features/crud/presentation/add/widgets/add_textfield.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/button.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/chip_card.dart';
 import 'package:to_do_list_app/features/crud/presentation/add/widgets/time_picker.dart';
-import 'package:to_do_list_app/features/crud/presentation/add/widgets/add_textfield.dart';
 import 'package:to_do_list_app/infrastructure/theme/typography.dart';
 
 class ActivityTabForm extends StatelessWidget {
@@ -61,6 +62,7 @@ class ActivityTabForm extends StatelessWidget {
                 AddTextField(
                   controller: nameInput,
                   title: 'Name',
+                  suffixIcon: const Icon(Remix.focus_2_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
@@ -73,6 +75,7 @@ class ActivityTabForm extends StatelessWidget {
                         DateFormat('dd MMMM yyyy').format(pickedDate!);
                     dateInput.text = formattedDate;
                   },
+                  suffixIcon: const Icon(Remix.calendar_2_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
@@ -84,6 +87,7 @@ class ActivityTabForm extends StatelessWidget {
                     final formattedDate = DateFormat.Hm().format(result!);
                     startInput.text = formattedDate;
                   },
+                  suffixIcon: const Icon(Remix.calendar_2_line),
                 ),
                 SizedBox(height: 15.h),
                 AddTextField(
@@ -95,6 +99,7 @@ class ActivityTabForm extends StatelessWidget {
                     final formattedDate = DateFormat.Hm().format(result!);
                     finishInput.text = formattedDate;
                   },
+                  suffixIcon: const Icon(Remix.time_line),
                 ),
                 SizedBox(height: 15.h),
                 Align(
@@ -135,7 +140,6 @@ class ActivityTabForm extends StatelessWidget {
                 ),
                 SizedBox(height: 25.h),
                 SubmitButton(
-  
                   title: 'Create Task',
                   onTap: () async {
                     if (formKey.currentState!.validate()) {
