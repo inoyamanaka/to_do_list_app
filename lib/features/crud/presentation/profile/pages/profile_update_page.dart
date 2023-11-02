@@ -96,12 +96,12 @@ class _ProfilePageState extends State<ProfileUpdatePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Icon(
-                                    FontAwesomeIcons.rightFromBracket,
+                                    FontAwesomeIcons.arrowRight,
                                     color: Colors.white,
                                   ),
                                   SizedBox(width: 10.w),
                                   Text(
-                                    'Log Out',
+                                    'Submit',
                                     style: MyTypography.bodyMedium,
                                   ),
                                 ],
