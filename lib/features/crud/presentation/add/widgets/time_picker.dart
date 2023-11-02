@@ -12,6 +12,7 @@ Future<DateTime?> timePicker(BuildContext context) async {
       minuteTitle: 'Minute',
       saveButtonText: 'Save',
       initialDateTime: DateTime.now(),
+      minuteInterval: 1,
       sheetCloseIconColor: const Color(0xff302727),
       wheelNumberSelectedStyle: MyTypography.bodySmall,
       wheelNumberItemStyle: MyTypography.bodySmall,
