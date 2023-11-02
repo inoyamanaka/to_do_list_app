@@ -14,6 +14,7 @@ import 'package:to_do_list_app/features/crud/presentation/home/widgets/appbar.da
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/project_widget.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/show_all_project.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/show_all_today.dart';
+import 'package:to_do_list_app/features/crud/presentation/home/widgets/skelton_home.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/title_row.dart';
 import 'package:to_do_list_app/features/crud/presentation/home/widgets/today_widget.dart';
 
@@ -59,7 +60,6 @@ class _HomePageState extends State<HomePage> {
     await result.getProject();
     await result.getUser(int.parse(id.get('id').toString()));
     await result.getStatistic();
-    
   }
 
   @override
@@ -86,21 +86,23 @@ class _HomePageState extends State<HomePage> {
     final monthName = DateFormat('MMMM').format(presentTime);
     final year = presentTime.year;
     final screenSize = MediaQuery.of(context).size;
-    return FutureBuilder(
-      future: fetchData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox(
-            width: 40,
-            height: 40,
-            child: SizedBox(),
-          );
-        } else {
-          return ScreenUtilInit(
-            builder: (context, child) => SafeArea(
-              top: false,
-              child: SafeArea(
-                child: Scaffold(
+    return ScreenUtilInit(
+      child: SafeArea(
+        child: Scaffold(
+          body: FutureBuilder(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xff2b5876), Color(0xff4e4376)],
+                    ),
+                  ),
+                  child: SkeltonHome(),
+                );
+              } else {
+                return Scaffold(
                   body: DecoratedBox(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -160,12 +162,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          );
-        }
-      },
+                );
+              }
+            },
+          ),
+        ),
+      ),
     );
   }
 }
