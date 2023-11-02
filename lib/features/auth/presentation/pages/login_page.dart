@@ -38,27 +38,6 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, child) => Scaffold(
         body: Stack(
           children: [
-            Obx(
-              () => loginX.loginLoading.isTrue
-                  ? Stack(
-                      children: <Widget>[
-                        ColoredBox(
-                          color: Colors.black.withOpacity(0.5),
-                          child: const Center(),
-                        ),
-
-                        const Padding(
-                          padding: EdgeInsets.only(top: 80),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : const SizedBox(),
-            ),
             SingleChildScrollView(
               child: SizedBox(
                 height: size.height,
@@ -187,6 +166,26 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+            ),
+            Obx(
+              () => loginX.loginLoading.isTrue
+                  ? Stack(
+                      children: <Widget>[
+                        ColoredBox(
+                          color: Colors.black.withOpacity(0.5),
+                          child: const Center(),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 80),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
             ),
           ],
         ),

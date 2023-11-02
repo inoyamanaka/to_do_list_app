@@ -32,159 +32,167 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => registerX.registerLoading.isTrue
-          ? Stack(
-              children: <Widget>[
-                ColoredBox(
-                  color: Colors.black.withOpacity(0.5),
-                  child: const Center(),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 80),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
+    return ScreenUtilInit(
+      builder: (context, child) => Scaffold(
+        body: Stack(
+          children: [
+            
+            SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: ClipPath(
+                      clipper: WaveClipperTwo(),
+                      child: Container(
+                        height: 200.h,
+                        color: const Color(0xff171820),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )
-          : ScreenUtilInit(
-              builder: (context, child) => Scaffold(
-                body: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: ClipPath(
-                          clipper: WaveClipperTwo(),
-                          child: Container(
-                            height: 200.h,
-                            color: const Color(0xff171820),
-                          ),
+                  SizedBox(height: 40.h),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 20,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
                         ),
                       ),
-                      SizedBox(height: 40.h),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Create Account',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                    ),
+                  ),
+                  Form(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 20,
+                      ),
+                      child: Column(
+                        children: [
+                          AuthTextField(
+                            label: 'Username',
+                            icon: const Icon(FontAwesomeIcons.user),
+                            controller: username,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          AuthTextField(
+                            label: 'Email',
+                            icon: const Icon(FontAwesomeIcons.envelope),
+                            controller: email,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          AuthTextField(
+                            label: 'Password',
+                            icon: const Icon(FontAwesomeIcons.lock),
+                            isPassword: true,
+                            controller: password,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(
+                                0xff171820,
+                              ), // Background color
+                            ),
+                            onPressed: () async {
+                              await registerX.register(
+                                RegisterBody(
+                                  email: email.text,
+                                  username: username.text,
+                                  password: password.text,
+                                ),
+                              );
+                              Get.toNamed<void>(Routes.login);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Center(child: Text('Sign up')),
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 1,
+                                width: 150,
+                                color: const Color(0xff171820),
+                              ),
+                              const Text('or'),
+                              Container(
+                                height: 1,
+                                width: 150,
+                                color: const Color(0xff171820),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              side: const BorderSide(
+                                color: Color(0xff171820), // Border color
+                                width: 1.5, // Border width
+                              ),
+                              backgroundColor: const Color(0xffFFFFFF),
+                            ),
+                            child: const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Text(
+                                  'Log in',
+                                  style: TextStyle(
+                                    color: Color(0xff171820),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            onPressed: () async {
+                              Get.toNamed<void>(Routes.login);
+                            },
+                          ),
+                          SizedBox(height: 30.h),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Obx(
+              () => registerX.registerLoading.isTrue
+                  ? Stack(
+                      children: <Widget>[
+                        ColoredBox(
+                          color: Colors.black.withOpacity(0.5),
+                          child: const Center(),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 80),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
                             ),
                           ),
                         ),
-                      ),
-                      Form(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 20,
-                          ),
-                          child: Column(
-                            children: [
-                              AuthTextField(
-                                label: 'Username',
-                                icon: const Icon(FontAwesomeIcons.user),
-                                controller: username,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              AuthTextField(
-                                label: 'Email',
-                                icon: const Icon(FontAwesomeIcons.envelope),
-                                controller: email,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              AuthTextField(
-                                label: 'Password',
-                                icon: const Icon(FontAwesomeIcons.lock),
-                                isPassword: true,
-                                controller: password,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(
-                                    0xff171820,
-                                  ), // Background color
-                                ),
-                                onPressed: () async {
-                                  await registerX.register(
-                                    RegisterBody(
-                                      email: email.text,
-                                      username: username.text,
-                                      password: password.text,
-                                    ),
-                                  );
-                                  Get.toNamed<void>(Routes.login);
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Center(child: Text('Sign up')),
-                                ),
-                              ),
-                              SizedBox(height: 10.h),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 1,
-                                    width: 150,
-                                    color: const Color(0xff171820),
-                                  ),
-                                  const Text('or'),
-                                  Container(
-                                    height: 1,
-                                    width: 150,
-                                    color: const Color(0xff171820),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10.h),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  side: const BorderSide(
-                                    color: Color(0xff171820), // Border color
-                                    width: 1.5, // Border width
-                                  ),
-                                  backgroundColor: const Color(0xffFFFFFF),
-                                ),
-                                child: const Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Text(
-                                      'Log in',
-                                      style:
-                                          TextStyle(color: Color(0xff171820)),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  Get.toNamed<void>(Routes.login);
-                                },
-                              ),
-                              SizedBox(height: 30.h),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                      ],
+                    )
+                  : const SizedBox(),
             ),
+          ],
+        ),
+      ),
     );
   }
 }
